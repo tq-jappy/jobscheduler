@@ -1,4 +1,4 @@
-akatsuki
+jobscheduler
 ========
 
-akatsuki
+jobschdeuler written in Java (WIP)

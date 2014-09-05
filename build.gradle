@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'war'
 apply plugin: 'eclipse'
 
 sourceCompatibility = 1.8
@@ -24,8 +25,10 @@ dependencies {
     compile 'io.dropwizard:dropwizard-core:0.7.1'
     compile 'io.dropwizard:dropwizard-assets:0.7.1'
     compile 'org.eclipse.jetty.websocket:websocket-server:9.0.7.v20131107'
+    compile 'com.google.inject:guice:3.0'
     testCompile 'org.codehaus.groovy:groovy-all:2.3.2'
     testCompile 'junit:junit:4.11'
+    providedCompile 'org.projectlombok:lombok:1.14.6'
 }
 
 [compileJava, compileTestJava]*.options*.encoding = defaultEncoding
