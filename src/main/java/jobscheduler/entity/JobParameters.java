@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.experimental.Builder;
 
 /**
+ * Job parameters master.
+ * 
  * @author t_endo
  */
 @Data

@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 /**
+ * Schedule master.
  * 
  * @author t_endo
  */

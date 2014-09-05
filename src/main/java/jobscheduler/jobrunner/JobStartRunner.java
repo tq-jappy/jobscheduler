@@ -16,7 +16,6 @@ public class JobStartRunner {
     @Inject
     public JobStartRunner(EventBus eventBus) {
         this.eventBus = eventBus;
-        eventBus.register(this);
     }
 
     public void start(Schedule schedule) {

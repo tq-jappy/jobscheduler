@@ -12,7 +12,7 @@ import com.google.inject.Scopes;
  * @author t_endo
  *
  */
-public class JobModule extends AbstractModule {
+public class EventModule extends AbstractModule {
 
     /**
      * {@inheritDoc}

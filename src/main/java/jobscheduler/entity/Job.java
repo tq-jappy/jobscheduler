@@ -1,10 +1,11 @@
 package jobscheduler.entity;
 
+import jobscheduler.domain.JobType;
 import lombok.Data;
 import lombok.experimental.Builder;
 
 /**
- * Job Master
+ * Job master.
  * 
  * @author t_endo
  */
@@ -12,7 +13,11 @@ import lombok.experimental.Builder;
 @Builder
 public class Job {
 
+    int id;
+
     String name;
+
+    JobType jobType;
 
     JobParameters jobParameters;
 }

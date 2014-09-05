@@ -22,7 +22,6 @@ public class JobStartListener {
 
     @Subscribe
     public void onMessage(Job job) {
-        System.out.println("exec: ");
-        System.out.println(job.getJobParameters().getCommand()[0]);
+        System.out.println("exec: " + job.getJobParameters());
     }
 }
