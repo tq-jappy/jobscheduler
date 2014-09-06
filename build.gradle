@@ -23,6 +23,7 @@ subprojects {
     dependencies {
         testCompile 'org.codehaus.groovy:groovy-all:2.3.2'
         testCompile 'junit:junit:4.11'
+        testCompile 'org.hamcrest:hamcrest-library:1.1'
         providedCompile 'org.projectlombok:lombok:1.14.6'
     }
 
