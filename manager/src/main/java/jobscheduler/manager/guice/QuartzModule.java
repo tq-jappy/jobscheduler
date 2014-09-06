@@ -1,6 +1,6 @@
 package jobscheduler.manager.guice;
 
-import jobscheduler.quartz.GuiceInvokerJobFactory;
+import jobscheduler.manager.quartz.GuiceInvokerJobFactory;
 
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;

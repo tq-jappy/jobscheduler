@@ -1,4 +1,4 @@
-package jobscheduler.quartz;
+package jobscheduler.manager.quartz;
 
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;

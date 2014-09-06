@@ -8,8 +8,8 @@ import jobscheduler.manager.entity.Schedule;
 import jobscheduler.manager.guice.EventModule;
 import jobscheduler.manager.guice.QuartzModule;
 import jobscheduler.manager.jobrunner.JobStartRunner;
-import jobscheduler.quartz.ScheduleStartJob
-import jobscheduler.quartz.SchedulerService
+import jobscheduler.manager.quartz.ScheduleStartJob;
+import jobscheduler.manager.quartz.SchedulerService;
 
 import org.junit.Test
 import org.quartz.JobBuilder
