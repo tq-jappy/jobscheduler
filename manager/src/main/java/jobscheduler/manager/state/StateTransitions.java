@@ -1,11 +1,11 @@
-package jobscheduler.state;
+package jobscheduler.manager.state;
 
-import static jobscheduler.domain.Status.*;
+import static jobscheduler.manager.domain.Status.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import jobscheduler.domain.Status;
+import jobscheduler.manager.domain.Status;
 import lombok.EqualsAndHashCode;
 
 /**

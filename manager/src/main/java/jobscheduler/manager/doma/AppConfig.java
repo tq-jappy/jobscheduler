@@ -1,4 +1,4 @@
-package jobscheduler.doma;
+package jobscheduler.manager.doma;
 
 import javax.sql.DataSource;
 

@@ -1,4 +1,4 @@
-package jobscheduler.domain;
+package jobscheduler.manager.domain;
 
 /**
  * @author t_endo

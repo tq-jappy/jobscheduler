@@ -1,8 +1,8 @@
-package jobscheduler.guice;
+package jobscheduler.manager.guice;
 
-import jobscheduler.jobrunner.JobStartRunner;
-import jobscheduler.listener.JobStartListener;
-import jobscheduler.listener.ScheduleStartListener;
+import jobscheduler.manager.jobrunner.JobStartRunner;
+import jobscheduler.manager.listener.JobStartListener;
+import jobscheduler.manager.listener.ScheduleStartListener;
 
 import com.google.common.eventbus.EventBus;
 import com.google.inject.AbstractModule;

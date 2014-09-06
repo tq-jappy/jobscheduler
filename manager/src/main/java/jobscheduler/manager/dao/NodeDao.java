@@ -1,9 +1,9 @@
-package jobscheduler.dao;
+package jobscheduler.manager.dao;
 
 import java.util.List;
 
-import jobscheduler.doma.AppConfig;
-import jobscheduler.entity.Node;
+import jobscheduler.manager.doma.AppConfig;
+import jobscheduler.manager.entity.Node;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;

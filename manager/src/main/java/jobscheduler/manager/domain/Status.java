@@ -1,4 +1,4 @@
-package jobscheduler.domain;
+package jobscheduler.manager.domain;
 
 /**
  * Status of a running unit.

@@ -2,12 +2,12 @@ package jobscheduler;
 
 import java.util.concurrent.TimeUnit
 
-import jobscheduler.entity.Job
-import jobscheduler.entity.JobParameters
-import jobscheduler.entity.Schedule
-import jobscheduler.guice.EventModule
-import jobscheduler.guice.QuartzModule
-import jobscheduler.jobrunner.JobStartRunner
+import jobscheduler.manager.entity.Job;
+import jobscheduler.manager.entity.JobParameters;
+import jobscheduler.manager.entity.Schedule;
+import jobscheduler.manager.guice.EventModule;
+import jobscheduler.manager.guice.QuartzModule;
+import jobscheduler.manager.jobrunner.JobStartRunner;
 import jobscheduler.quartz.ScheduleStartJob
 import jobscheduler.quartz.SchedulerService
 

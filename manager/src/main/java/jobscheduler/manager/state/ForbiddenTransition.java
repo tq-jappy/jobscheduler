@@ -1,6 +1,6 @@
-package jobscheduler.state;
+package jobscheduler.manager.state;
 
-import jobscheduler.domain.Status;
+import jobscheduler.manager.domain.Status;
 
 /**
  * @author t_endo

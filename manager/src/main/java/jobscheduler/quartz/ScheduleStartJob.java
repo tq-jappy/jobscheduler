@@ -1,6 +1,6 @@
 package jobscheduler.quartz;
 
-import jobscheduler.entity.JobParameters;
+import jobscheduler.manager.entity.JobParameters;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -26,7 +26,7 @@ public class ScheduleStartJob implements Job {
             throws JobExecutionException {
         JobParameters params = JobParameters.builder()
                 .command(new String[] { "aaaaa" }).build();
-        jobscheduler.entity.Job job = jobscheduler.entity.Job.builder()
+        jobscheduler.manager.entity.Job job = jobscheduler.manager.entity.Job.builder()
                 .jobParameters(params).build();
 
         eventBus.post(job);

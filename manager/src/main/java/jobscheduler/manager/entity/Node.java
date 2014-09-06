@@ -1,4 +1,4 @@
-package jobscheduler.entity;
+package jobscheduler.manager.entity;
 
 import lombok.Value;
 import lombok.experimental.Builder;

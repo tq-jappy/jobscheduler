@@ -1,20 +1,20 @@
-package jobscheduler.dao;
+package jobscheduler.manager.dao;
 
-import jobscheduler.doma.AppConfig;
+import jobscheduler.manager.doma.AppConfig;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Script;
 
 /**
- * 
  * @author t_endo
+ *
  */
 @Dao(config = AppConfig.class)
 public interface AppDao {
 
     @Script
-    void create();
+    public void create();
 
     @Script
-    void drop();
+    public void drop();
 }

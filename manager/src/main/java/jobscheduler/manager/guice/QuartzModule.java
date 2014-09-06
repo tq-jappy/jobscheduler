@@ -1,4 +1,4 @@
-package jobscheduler.guice;
+package jobscheduler.manager.guice;
 
 import jobscheduler.quartz.GuiceInvokerJobFactory;
 

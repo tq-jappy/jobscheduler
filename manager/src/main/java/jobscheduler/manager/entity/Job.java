@@ -1,6 +1,6 @@
-package jobscheduler.entity;
+package jobscheduler.manager.entity;
 
-import jobscheduler.domain.JobType;
+import jobscheduler.manager.domain.JobType;
 import lombok.Data;
 import lombok.experimental.Builder;
 

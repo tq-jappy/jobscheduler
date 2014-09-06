@@ -1,8 +1,8 @@
 package jobscheduler.manager.test;
 
-import jobscheduler.dao.AppDao;
-import jobscheduler.dao.AppDaoImpl;
-import jobscheduler.doma.AppConfig;
+import jobscheduler.manager.dao.AppDao;
+import jobscheduler.manager.dao.AppDaoImpl;
+import jobscheduler.manager.doma.AppConfig;
 
 import org.junit.rules.ExternalResource;
 import org.seasar.doma.jdbc.tx.TransactionManager;

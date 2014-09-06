@@ -1,6 +1,6 @@
-package jobscheduler.jobrunner;
+package jobscheduler.manager.jobrunner;
 
-import jobscheduler.entity.Schedule;
+import jobscheduler.manager.entity.Schedule;
 
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;

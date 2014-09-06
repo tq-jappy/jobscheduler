@@ -2,10 +2,8 @@ package jobscheduler.manager.dao;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
-import jobscheduler.dao.NodeDao;
-import jobscheduler.dao.NodeDaoImpl;
-import jobscheduler.doma.AppConfig;
-import jobscheduler.entity.Node;
+import jobscheduler.manager.doma.AppConfig;
+import jobscheduler.manager.entity.Node;
 import jobscheduler.manager.test.TestingDbResource;
 
 import org.junit.Rule;

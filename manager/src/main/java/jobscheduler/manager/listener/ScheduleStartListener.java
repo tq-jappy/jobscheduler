@@ -1,6 +1,6 @@
-package jobscheduler.listener;
+package jobscheduler.manager.listener;
 
-import jobscheduler.entity.Schedule;
+import jobscheduler.manager.entity.Schedule;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
