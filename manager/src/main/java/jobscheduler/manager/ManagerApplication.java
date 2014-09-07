@@ -2,6 +2,8 @@ package jobscheduler.manager;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import jobscheduler.manager.guice.EventModule;
@@ -43,6 +45,14 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
 
         bootstrap.addBundle(new AssetsBundle("/assets", "/app", "index.html",
                 "assets"));
+
+        bootstrap.addBundle(new MigrationsBundle<ManagerConfiguration>() {
+            @Override
+            public DataSourceFactory getDataSourceFactory(
+                    ManagerConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+        });
     }
 
     /**
@@ -51,7 +61,6 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
     @Override
     public void run(ManagerConfiguration configuration, Environment environment)
             throws Exception {
-
         environment.jersey().register(injector.getInstance(NodeResource.class));
     }
 }

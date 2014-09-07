@@ -12,6 +12,7 @@ buildscript {
 dependencies {
     compile 'io.dropwizard:dropwizard-core:0.7.1'
     compile 'io.dropwizard:dropwizard-assets:0.7.1'
+    compile 'io.dropwizard:dropwizard-migrations:0.7.1'
     compile 'io.dropwizard:dropwizard-client:0.7.1'
     compile 'org.eclipse.jetty.websocket:websocket-server:9.0.7.v20131107'
     compile 'com.google.inject:guice:3.0'
