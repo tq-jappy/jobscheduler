@@ -23,10 +23,15 @@ public class Node {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(sequence = "NODE_SEQ")
-    Integer id;
+    final Integer id;
 
     /**
      * host name or IP address
      */
-    String hostName;
+    final String hostName;
+
+    public Node(Integer id, String hostName) {
+        this.id = id;
+        this.hostName = hostName;
+    }
 }

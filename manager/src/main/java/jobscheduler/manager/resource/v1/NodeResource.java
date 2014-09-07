@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import jobscheduler.manager.dao.NodeDao;
+import jobscheduler.manager.doma.AppConfig;
 import jobscheduler.manager.entity.Node;
 
 import com.google.inject.Inject;
@@ -25,7 +26,9 @@ public class NodeResource {
 
     @GET
     public List<Node> getNodes() {
-        List<Node> nodes = dao.selectAll();
-        return nodes;
+        AppConfig.singleton().getTransactionManager().required(() -> {
+            return dao.selectAll();
+        });
+        return null;
     }
 }

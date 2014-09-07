@@ -1,6 +1,14 @@
 processResources.destinationDir = compileJava.destinationDir
 compileJava.dependsOn processResources
 
+apply plugin: 'gradle-one-jar'
+
+buildscript {
+    repositories { mavenCentral() }
+
+    dependencies { classpath 'com.github.rholder:gradle-one-jar:1.0.4' }
+}
+
 dependencies {
     compile 'io.dropwizard:dropwizard-core:0.7.1'
     compile 'io.dropwizard:dropwizard-assets:0.7.1'
@@ -15,3 +23,7 @@ dependencies {
 }
 
 apply from: 'eclipse.gradle'
+
+task oneJar(type: OneJar) { mainClass = 'jobscheduler.manager.ManagerApplication' }
+
+assemble.dependsOn oneJar

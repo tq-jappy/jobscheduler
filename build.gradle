@@ -12,14 +12,6 @@ subprojects {
 
     repositories { mavenCentral() }
 
-    //    apply plugin: 'gradle-one-jar'
-
-    //    buildscript {
-    //        repositories { mavenCentral() }
-    //
-    //        dependencies { classpath 'com.github.rholder:gradle-one-jar:1.0.4' }
-    //    }
-
     dependencies {
         testCompile 'org.codehaus.groovy:groovy-all:2.3.2'
         testCompile 'junit:junit:4.11'
@@ -28,8 +20,4 @@ subprojects {
     }
 
     [compileJava, compileTestJava]*.options*.encoding = defaultEncoding
-
-    //    task oneJar(type: OneJar) { mainClass = 'example.Main' }
-
-    //    assemble.dependsOn oneJar
 }

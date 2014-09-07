@@ -11,6 +11,6 @@ public class ManagerApplicationTest {
     @Test
     public void test() throws Exception {
         ManagerApplication app = new ManagerApplication();
-        app.run(new String[] { "server" });
+        app.run(new String[] { "server", "setting/configuration.yml" });
     }
 }
