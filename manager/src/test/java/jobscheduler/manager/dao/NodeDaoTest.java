@@ -38,7 +38,6 @@ public class NodeDaoTest {
         TransactionManager tm = AppConfig.singleton().getTransactionManager();
         tm.required(() -> {
             Node node = Node.builder().hostName("localhost").build();
-            System.out.println(node);
 
             int result = dao.insert(node);
             assertThat(result, is(1));

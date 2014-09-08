@@ -2,6 +2,7 @@ package jobscheduler.manager.listener;
 
 import javax.ws.rs.core.MediaType;
 
+import jobscheduler.manager.dao.NodeDao;
 import jobscheduler.manager.entity.CommandJob;
 
 import com.google.common.eventbus.EventBus;
@@ -17,6 +18,9 @@ import com.sun.jersey.api.client.WebResource;
 public class JobStartListener {
 
     // private EventBus eventBus;
+
+    @Inject
+    private NodeDao nodeDao;
 
     @Inject
     public JobStartListener(EventBus eventBus) {

@@ -12,8 +12,8 @@ import org.seasar.doma.Select;
 import org.seasar.doma.Update;
 
 /**
+ * 
  * @author t_endo
- *
  */
 @Dao(config = AppConfig.class)
 public interface NodeDao {

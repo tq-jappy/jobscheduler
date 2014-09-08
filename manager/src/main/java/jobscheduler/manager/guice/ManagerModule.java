@@ -1,6 +1,7 @@
 package jobscheduler.manager.guice;
 
 import jobscheduler.manager.dao.NodeDao;
+import jobscheduler.manager.dao.NodeDaoImpl;
 
 import com.google.inject.AbstractModule;
 

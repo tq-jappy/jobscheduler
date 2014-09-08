@@ -2,14 +2,16 @@ package jobscheduler;
 
 import java.util.concurrent.TimeUnit
 
-import jobscheduler.manager.entity.Job;
-import jobscheduler.manager.entity.JobParameters;
-import jobscheduler.manager.entity.Schedule;
-import jobscheduler.manager.guice.EventModule;
-import jobscheduler.manager.guice.QuartzModule;
-import jobscheduler.manager.jobrunner.JobStartRunner;
-import jobscheduler.manager.quartz.ScheduleStartJob;
-import jobscheduler.manager.quartz.SchedulerService;
+import jobscheduler.manager.entity.CommandJob
+import jobscheduler.manager.entity.Job
+import jobscheduler.manager.entity.JobParameters
+import jobscheduler.manager.entity.Schedule
+import jobscheduler.manager.guice.EventModule
+import jobscheduler.manager.guice.ManagerModule
+import jobscheduler.manager.guice.QuartzModule
+import jobscheduler.manager.jobrunner.JobStartRunner
+import jobscheduler.manager.quartz.ScheduleStartJob
+import jobscheduler.manager.quartz.SchedulerService
 
 import org.junit.Test
 import org.quartz.JobBuilder
@@ -28,7 +30,7 @@ class JobStartRunnerTest {
 
     @Test
     public void "aaa"() {
-        def injector = Guice.createInjector(new EventModule())
+        def injector = Guice.createInjector(new ManagerModule(), new EventModule())
         def runner = injector.getInstance(JobStartRunner.class)
 
         def schedule = new Schedule()
@@ -38,7 +40,7 @@ class JobStartRunnerTest {
         for (i in (0..10)) {
             String[] cmd1 = ["c${i}"]
             JobParameters params1 = JobParameters.builder().command(cmd1).build()
-            Job job1 = Job.builder().name("j${i}").jobParameters(params1).build()
+            Job job1 = CommandJob.builder().command("j${i}").build()
             jobs.add(job1)
         }
 
@@ -48,7 +50,7 @@ class JobStartRunnerTest {
 
     @Test
     public void "bbb"() {
-        def injector = Guice.createInjector(new EventModule(), new QuartzModule())
+        def injector = Guice.createInjector(new ManagerModule(), new EventModule(), new QuartzModule())
         Scheduler scheduler = injector.getInstance(Scheduler.class)
         SchedulerService schedulerService = injector.getInstance(SchedulerService.class)
 
