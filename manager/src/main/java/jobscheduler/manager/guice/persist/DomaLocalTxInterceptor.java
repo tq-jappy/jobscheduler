@@ -28,6 +28,8 @@ public class DomaLocalTxInterceptor implements MethodInterceptor {
     public Object invoke(MethodInvocation invocation) throws Throwable {
         TransactionManager tm = AppConfig.singleton().getTransactionManager();
 
+        System.out.println("----------------- start.");
+
         DomaTransactionAttribute transactional = readTransactionMetadata(invocation);
 
         Supplier<Object> supplier = () -> {

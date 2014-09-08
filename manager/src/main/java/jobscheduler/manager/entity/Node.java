@@ -12,6 +12,8 @@ import org.seasar.doma.Id;
 import org.seasar.doma.SequenceGenerator;
 import org.seasar.doma.jdbc.entity.NamingType;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Node.
  * 
@@ -27,10 +29,12 @@ public class Node {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(sequence = "NODE_SEQ")
+    @JsonProperty
     int id;
 
     /**
      * host name or IP address
      */
+    @JsonProperty
     String hostName;
 }
