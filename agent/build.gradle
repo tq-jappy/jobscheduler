@@ -1,4 +1,10 @@
+repositories { mavenCentral() //  maven { url "https://maven.java.net/content/repositories/snapshots" }
+}
+
 dependencies {
+    compile 'com.sun.jersey:jersey-core:1.1.8.1'
+    compile 'com.sun.jersey:jersey-server:1.18.1'
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'com.google.inject:guice:3.0'
     compile 'com.google.inject.extensions:guice-assistedinject:3.0'
 }
