@@ -15,7 +15,7 @@ import org.seasar.doma.jdbc.tx.TransactionAttribute;
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface DomaTransactional {
+public @interface DomaTransactionAttribute {
 
     // Class<? extends Exception>[] rollbackOn() default RuntimeException.class;
 

@@ -18,8 +18,8 @@ import org.seasar.doma.jdbc.tx.TransactionManager;
  */
 public class DomaLocalTxInterceptor implements MethodInterceptor {
 
-    private static final DomaTransactional DEFAULT_TRANSACTIONAL = Internal.class
-            .getAnnotation(DomaTransactional.class);
+    private static final DomaTransactionAttribute DEFAULT_TRANSACTIONAL = Internal.class
+            .getAnnotation(DomaTransactionAttribute.class);
 
     /**
      * {@inheritDoc}
@@ -28,7 +28,7 @@ public class DomaLocalTxInterceptor implements MethodInterceptor {
     public Object invoke(MethodInvocation invocation) throws Throwable {
         TransactionManager tm = AppConfig.singleton().getTransactionManager();
 
-        DomaTransactional transactional = readTransactionMetadata(invocation);
+        DomaTransactionAttribute transactional = readTransactionMetadata(invocation);
 
         Supplier<Object> supplier = () -> {
             // ラムダ式内で例外が起きた場合、ロールバックされる
@@ -57,20 +57,21 @@ public class DomaLocalTxInterceptor implements MethodInterceptor {
     }
 
     /**
-     * 対象に付いている {@link DomaTransactional} アノテーションを取り出す。
+     * 対象に付いている {@link DomaTransactionAttribute} アノテーションを取り出す。
      * 
      * @param methodInvocation
      * @return
      */
-    private DomaTransactional readTransactionMetadata(
+    private DomaTransactionAttribute readTransactionMetadata(
             MethodInvocation methodInvocation) {
         Method method = methodInvocation.getMethod();
         Class<?> targetClass = methodInvocation.getThis().getClass();
 
-        DomaTransactional transactional = method
-                .getAnnotation(DomaTransactional.class);
+        DomaTransactionAttribute transactional = method
+                .getAnnotation(DomaTransactionAttribute.class);
         if (transactional == null) {
-            transactional = targetClass.getAnnotation(DomaTransactional.class);
+            transactional = targetClass
+                    .getAnnotation(DomaTransactionAttribute.class);
         }
 
         if (transactional == null) {
@@ -80,7 +81,7 @@ public class DomaLocalTxInterceptor implements MethodInterceptor {
         return transactional;
     }
 
-    @DomaTransactional
+    @DomaTransactionAttribute
     private static class Internal {
     }
 }
