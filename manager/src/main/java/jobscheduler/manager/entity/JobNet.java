@@ -1,19 +1,18 @@
 package jobscheduler.manager.entity;
 
+import java.util.Optional;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Builder;
 
 import org.seasar.doma.Entity;
-import org.seasar.doma.GeneratedValue;
-import org.seasar.doma.GenerationType;
-import org.seasar.doma.Id;
-import org.seasar.doma.SequenceGenerator;
 import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
- * Node.
+ * Job net.
  * 
  * @author t_endo
  */
@@ -22,15 +21,9 @@ import org.seasar.doma.jdbc.entity.NamingType;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Node {
+@EqualsAndHashCode(callSuper = true)
+public class JobNet extends Unit {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(sequence = "NODE_SEQ")
-    int id;
-
-    /**
-     * host name or IP address
-     */
-    String hostName;
+    // TODO: schedule or cycle
+    Optional<Integer> calendarId;
 }

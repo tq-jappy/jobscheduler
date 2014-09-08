@@ -10,7 +10,6 @@ import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.Update;
-import org.seasar.doma.jdbc.Result;
 
 /**
  * @author t_endo
@@ -26,11 +25,11 @@ public interface NodeDao {
     Node selectById(Integer id);
 
     @Insert
-    Result<Node> insert(Node node);
+    int insert(Node node);
 
     @Update
-    Result<Node> update(Node node);
+    int update(Node node);
 
     @Delete
-    Result<Node> delete(Node node);
+    int delete(Node node);
 }

@@ -1,23 +1,22 @@
 package jobscheduler.manager.entity;
 
-import jobscheduler.manager.domain.JobType;
 import lombok.Data;
-import lombok.experimental.Builder;
+import lombok.EqualsAndHashCode;
+
+import org.seasar.doma.Entity;
+import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
- * Job master.
+ * Job.
  * 
  * @author t_endo
  */
+@Entity(naming = NamingType.SNAKE_LOWER_CASE)
 @Data
-@Builder
-public class Job {
+@EqualsAndHashCode(callSuper = true)
+public class Job extends Unit {
 
-    int id;
+    int outputRecordingMax;
 
-    String name;
-
-    JobType jobType;
-
-    JobParameters jobParameters;
+    boolean outputRecordingTail;
 }

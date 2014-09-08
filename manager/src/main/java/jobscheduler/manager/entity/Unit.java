@@ -1,9 +1,9 @@
 package jobscheduler.manager.entity;
 
-import lombok.AllArgsConstructor;
+import java.util.Optional;
+
+import jobscheduler.manager.domain.UnitType;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Builder;
 
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
@@ -13,24 +13,31 @@ import org.seasar.doma.SequenceGenerator;
 import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
- * Node.
  * 
  * @author t_endo
  */
 @Entity(naming = NamingType.SNAKE_LOWER_CASE)
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class Node {
+public abstract class Unit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(sequence = "NODE_SEQ")
+    @SequenceGenerator(sequence = "UNIT_SEQ")
     int id;
 
-    /**
-     * host name or IP address
-     */
-    String hostName;
+    String name;
+
+    UnitType unitType;
+
+    int indexX;
+
+    int indexY;
+
+    Optional<Integer> startHour;
+
+    Optional<Integer> startMinute;
+
+    // TODO: delay, abort timer parameters.
+
+    // Optional<Integer> startDelayHour;
 }

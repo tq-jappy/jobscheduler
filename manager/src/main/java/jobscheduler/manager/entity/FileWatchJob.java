@@ -2,18 +2,15 @@ package jobscheduler.manager.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Builder;
 
 import org.seasar.doma.Entity;
-import org.seasar.doma.GeneratedValue;
-import org.seasar.doma.GenerationType;
-import org.seasar.doma.Id;
-import org.seasar.doma.SequenceGenerator;
 import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
- * Node.
+ * File watch job.
  * 
  * @author t_endo
  */
@@ -22,15 +19,14 @@ import org.seasar.doma.jdbc.entity.NamingType;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Node {
+@EqualsAndHashCode(callSuper = true)
+public class FileWatchJob extends Job {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(sequence = "NODE_SEQ")
-    int id;
+    String fromPath;
 
-    /**
-     * host name or IP address
-     */
-    String hostName;
+    int fromNodeId;
+
+    String toPath;
+
+    int toNodeId;
 }

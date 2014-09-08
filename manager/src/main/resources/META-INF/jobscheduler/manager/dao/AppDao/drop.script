@@ -1,2 +1,5 @@
 drop sequence employee_seq;
 drop table employee;
+
+drop sequence node_seq;
+drop table node;

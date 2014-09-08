@@ -1,4 +1,5 @@
 processResources.destinationDir = compileJava.destinationDir
+println compileJava.destinationDir
 compileJava.dependsOn processResources
 
 apply plugin: 'gradle-one-jar'

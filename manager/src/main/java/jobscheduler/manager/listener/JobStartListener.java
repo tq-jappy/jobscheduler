@@ -2,7 +2,7 @@ package jobscheduler.manager.listener;
 
 import javax.ws.rs.core.MediaType;
 
-import jobscheduler.manager.entity.Job;
+import jobscheduler.manager.entity.CommandJob;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -25,8 +25,8 @@ public class JobStartListener {
     }
 
     @Subscribe
-    public void onMessage(Job job) {
-        System.out.println("exec: " + job.getJobParameters());
+    public void onMessage(CommandJob job) {
+        System.out.println("exec: " + job.getCommand());
 
         Client client = Client.create();
         WebResource r = client.resource("http://localhost:12345/aa");
