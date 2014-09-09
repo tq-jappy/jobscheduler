@@ -7,9 +7,7 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import jobscheduler.manager.doma.DomaBundle;
-import jobscheduler.manager.guice.EventModule;
 import jobscheduler.manager.guice.ManagerModule;
-import jobscheduler.manager.guice.QuartzModule;
 
 import com.hubspot.dropwizard.guice.GuiceBundle;
 
@@ -51,11 +49,9 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
         bootstrap.addBundle(domaBundle);
 
         // Guice
-        ManagerModule managerModule = new ManagerModule();
-
         GuiceBundle<ManagerConfiguration> guiceBundle = GuiceBundle
-                .<ManagerConfiguration> newBuilder().addModule(managerModule)
-                .addModule(new EventModule()).addModule(new QuartzModule())
+                .<ManagerConfiguration> newBuilder()
+                .addModule(new ManagerModule())
                 .enableAutoConfig(getClass().getPackage().getName())
                 .setConfigClass(ManagerConfiguration.class).build();
         bootstrap.addBundle(guiceBundle);

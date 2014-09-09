@@ -3,11 +3,11 @@ package jobscheduler.manager.guice.persist;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
-import jobscheduler.manager.doma.AppConfig;
-
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.seasar.doma.jdbc.tx.TransactionManager;
+
+import com.google.inject.Inject;
 
 /**
  * Guice でトランザクション管理を行うためのインターセプタ。<br />
@@ -21,15 +21,14 @@ public class DomaLocalTxInterceptor implements MethodInterceptor {
     private static final DomaTransactionAttribute DEFAULT_TRANSACTIONAL = Internal.class
             .getAnnotation(DomaTransactionAttribute.class);
 
+    @Inject
+    private TransactionManager transactionManager;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        TransactionManager tm = AppConfig.singleton().getTransactionManager();
-
-        System.out.println("----------------- start.");
-
         DomaTransactionAttribute transactional = readTransactionMetadata(invocation);
 
         Supplier<Object> supplier = () -> {
@@ -44,14 +43,14 @@ public class DomaLocalTxInterceptor implements MethodInterceptor {
         Object result;
         switch (transactional.attribute()) {
         case REQURED:
-            result = tm.required(supplier);
+            result = transactionManager.required(supplier);
             break;
         case NOT_SUPPORTED:
-            result = tm.notSupported(supplier);
+            result = transactionManager.notSupported(supplier);
             break;
         case REQURES_NEW:
         default:
-            result = tm.requiresNew(supplier);
+            result = transactionManager.requiresNew(supplier);
             break;
         }
 

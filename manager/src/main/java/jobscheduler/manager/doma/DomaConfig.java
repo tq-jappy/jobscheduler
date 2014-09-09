@@ -9,6 +9,7 @@ import org.seasar.doma.jdbc.tx.LocalTransactionManager;
 import org.seasar.doma.jdbc.tx.TransactionManager;
 
 /**
+ * Dropwizard 上で Doma を利用する場合の Config
  * 
  * @author t_endo
  */

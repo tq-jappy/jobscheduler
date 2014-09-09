@@ -21,8 +21,9 @@ import org.seasar.doma.jdbc.dialect.PostgresDialect;
 import org.seasar.doma.jdbc.dialect.SqliteDialect;
 
 /**
+ * Doma2 用の Dropwizard バンドル
+ * 
  * @author t_endo
- *
  */
 public abstract class DomaBundle<T extends Configuration> implements
         ConfiguredBundle<T>, DatabaseConfiguration<T> {

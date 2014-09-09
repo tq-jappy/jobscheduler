@@ -1,7 +1,7 @@
 package jobscheduler.manager.domain;
 
 /**
- * Status of a running unit.
+ * 実行ステータス
  * 
  * @author t_endo
  */
