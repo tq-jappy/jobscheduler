@@ -1,7 +1,17 @@
 jobscheduler
 ========
 
-jobschdeuler written in Java (WIP)
+A light-weight job scheduler implemented in Java (WIP).
+
+Uses:
+
+- Dropwizard
+- Doma
+- Google Guice
+
+Requires:
+
+- JDK8
 
 ## Development by Eclipse
 
