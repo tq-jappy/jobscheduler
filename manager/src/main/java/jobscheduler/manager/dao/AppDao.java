@@ -1,6 +1,6 @@
 package jobscheduler.manager.dao;
 
-import jobscheduler.manager.doma.AppConfig;
+import jobscheduler.manager.doma.InjectConfig;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Script;
@@ -9,7 +9,8 @@ import org.seasar.doma.Script;
  * @author t_endo
  *
  */
-@Dao(config = AppConfig.class)
+@Dao
+@InjectConfig
 public interface AppDao {
 
     @Script

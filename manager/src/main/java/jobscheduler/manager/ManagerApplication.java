@@ -6,11 +6,12 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import jobscheduler.manager.doma.DomaBundle;
+import jobscheduler.manager.doma.DomaConfig;
 import jobscheduler.manager.guice.EventModule;
 import jobscheduler.manager.guice.ManagerModule;
 import jobscheduler.manager.guice.QuartzModule;
 
-import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 
@@ -42,19 +43,38 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
      */
     @Override
     public void initialize(Bootstrap<ManagerConfiguration> bootstrap) {
-        injector = Guice.createInjector(new ManagerModule(), new EventModule());
+        // Doma
+        DomaBundle<ManagerConfiguration> domaBundle = new DomaBundle<ManagerConfiguration>(
+                "doma") {
+            @Override
+            public DataSourceFactory getDataSourceFactory(
+                    ManagerConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+        };
+        bootstrap.addBundle(domaBundle);
 
-        bootstrap.addBundle(new AssetsBundle("/assets", "/app", "index.html",
-                "assets"));
+        DomaConfig domaConfig = domaBundle.getDomaConfig();
+
+        // Guice
+        ManagerModule managerModule = new ManagerModule() {
+            @Override
+            public DomaConfig providesDomaConfig() {
+                return domaConfig;
+            }
+        };
 
         GuiceBundle<ManagerConfiguration> guiceBundle = GuiceBundle
-                .<ManagerConfiguration> newBuilder()
-                .addModule(new ManagerModule()).addModule(new EventModule())
-                .addModule(new QuartzModule())
+                .<ManagerConfiguration> newBuilder().addModule(managerModule)
+                .addModule(new EventModule()).addModule(new QuartzModule())
                 .enableAutoConfig(getClass().getPackage().getName())
                 .setConfigClass(ManagerConfiguration.class).build();
         bootstrap.addBundle(guiceBundle);
 
+        bootstrap.addBundle(new AssetsBundle("/assets", "/app", "index.html",
+                "assets"));
+
+        // Migrations
         bootstrap.addBundle(new MigrationsBundle<ManagerConfiguration>() {
             @Override
             public DataSourceFactory getDataSourceFactory(

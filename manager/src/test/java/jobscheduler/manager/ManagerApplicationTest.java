@@ -1,5 +1,6 @@
 package jobscheduler.manager;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -9,6 +10,12 @@ import org.junit.Test;
 public class ManagerApplicationTest {
 
     @Test
+    public void check() throws Exception {
+        ManagerApplication app = new ManagerApplication();
+        app.run(new String[] { "check", "setting/configuration.yml" });
+    }
+
+    @Ignore
     public void test() throws Exception {
         ManagerApplication app = new ManagerApplication();
         app.run(new String[] { "server", "setting/configuration.yml" });

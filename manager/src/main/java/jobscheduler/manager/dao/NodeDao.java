@@ -2,7 +2,7 @@ package jobscheduler.manager.dao;
 
 import java.util.List;
 
-import jobscheduler.manager.doma.AppConfig;
+import jobscheduler.manager.doma.InjectConfig;
 import jobscheduler.manager.entity.Node;
 
 import org.seasar.doma.Dao;
@@ -15,7 +15,8 @@ import org.seasar.doma.Update;
  * 
  * @author t_endo
  */
-@Dao(config = AppConfig.class)
+@Dao
+@InjectConfig
 public interface NodeDao {
 
     @Select

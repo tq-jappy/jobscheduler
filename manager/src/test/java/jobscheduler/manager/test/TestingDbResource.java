@@ -13,11 +13,13 @@ import org.seasar.doma.jdbc.tx.TransactionManager;
  */
 public class TestingDbResource extends ExternalResource {
 
-    private AppDao dao = new AppDaoImpl();
+    private AppDao dao = new AppDaoImpl(AppConfig.singleton());
+
+    private TransactionManager tm = AppConfig.singleton()
+            .getTransactionManager();
 
     @Override
     protected void before() throws Throwable {
-        TransactionManager tm = AppConfig.singleton().getTransactionManager();
         tm.required(() -> {
             dao.create();
         });
@@ -25,9 +27,12 @@ public class TestingDbResource extends ExternalResource {
 
     @Override
     protected void after() {
-        TransactionManager tm = AppConfig.singleton().getTransactionManager();
         tm.required(() -> {
             dao.drop();
         });
+    }
+
+    public void execute(Runnable runnable) {
+        tm.required(runnable);
     }
 }

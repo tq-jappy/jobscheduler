@@ -26,9 +26,9 @@ dependencies {
     compile 'org.quartz-scheduler:quartz:2.2.1'
     compile 'org.quartz-scheduler:quartz-jobs:2.2.1'
     compile 'org.seasar.doma:doma:2.0.1'
-    // runtime 'com.h2database:h2:1.3.175'
     compile 'org.postgresql:postgresql:9.3-1102-jdbc41'
     providedCompile 'org.projectlombok:lombok:1.14.6'
+    testRuntime 'com.h2database:h2:1.3.175'
 }
 
 apply from: 'eclipse.gradle'
