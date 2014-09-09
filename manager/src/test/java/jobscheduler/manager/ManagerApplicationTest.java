@@ -13,4 +13,11 @@ public class ManagerApplicationTest {
         ManagerApplication app = new ManagerApplication();
         app.run(new String[] { "server", "setting/configuration.yml" });
     }
+
+    @Test
+    public void test2() throws Exception {
+        ManagerApplication app = new ManagerApplication();
+        app.run(new String[] { "db", "migrate", // "--dry-run",
+                "setting/configuration.yml" });
+    }
 }

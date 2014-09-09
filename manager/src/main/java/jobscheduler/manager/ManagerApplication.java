@@ -8,11 +8,11 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import jobscheduler.manager.guice.EventModule;
 import jobscheduler.manager.guice.ManagerModule;
-import jobscheduler.manager.resource.v1.NodeResource;
-import jobscheduler.manager.resource.v1.RootResource;
+import jobscheduler.manager.guice.QuartzModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.hubspot.dropwizard.guice.GuiceBundle;
 
 /**
  * Application main entry class.
@@ -47,6 +47,14 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
         bootstrap.addBundle(new AssetsBundle("/assets", "/app", "index.html",
                 "assets"));
 
+        GuiceBundle<ManagerConfiguration> guiceBundle = GuiceBundle
+                .<ManagerConfiguration> newBuilder()
+                .addModule(new ManagerModule()).addModule(new EventModule())
+                .addModule(new QuartzModule())
+                .enableAutoConfig(getClass().getPackage().getName())
+                .setConfigClass(ManagerConfiguration.class).build();
+        bootstrap.addBundle(guiceBundle);
+
         bootstrap.addBundle(new MigrationsBundle<ManagerConfiguration>() {
             @Override
             public DataSourceFactory getDataSourceFactory(
@@ -62,8 +70,8 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
     @Override
     public void run(ManagerConfiguration configuration, Environment environment)
             throws Exception {
-        environment.jersey().register(new RootResource());
+        // environment.jersey().register(new RootResource());
         // environment.jersey().register(injector.getInstance(NodeResource.class));
-        environment.jersey().register(NodeResource.class);
+        // environment.jersey().register(NodeResource.class);
     }
 }
