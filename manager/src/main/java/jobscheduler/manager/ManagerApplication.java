@@ -7,12 +7,10 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import jobscheduler.manager.doma.DomaBundle;
-import jobscheduler.manager.doma.DomaConfig;
 import jobscheduler.manager.guice.EventModule;
 import jobscheduler.manager.guice.ManagerModule;
 import jobscheduler.manager.guice.QuartzModule;
 
-import com.google.inject.Injector;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 
 /**
@@ -21,8 +19,6 @@ import com.hubspot.dropwizard.guice.GuiceBundle;
  * @author t_endo
  */
 public class ManagerApplication extends Application<ManagerConfiguration> {
-
-    private Injector injector;
 
     /**
      * main
@@ -54,15 +50,8 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
         };
         bootstrap.addBundle(domaBundle);
 
-        DomaConfig domaConfig = domaBundle.getDomaConfig();
-
         // Guice
-        ManagerModule managerModule = new ManagerModule() {
-            @Override
-            public DomaConfig providesDomaConfig() {
-                return domaConfig;
-            }
-        };
+        ManagerModule managerModule = new ManagerModule();
 
         GuiceBundle<ManagerConfiguration> guiceBundle = GuiceBundle
                 .<ManagerConfiguration> newBuilder().addModule(managerModule)

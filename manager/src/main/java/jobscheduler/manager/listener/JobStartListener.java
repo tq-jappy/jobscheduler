@@ -4,6 +4,8 @@ import javax.ws.rs.core.MediaType;
 
 import jobscheduler.manager.dao.NodeDao;
 import jobscheduler.manager.entity.CommandJob;
+import jobscheduler.manager.entity.Node;
+import lombok.extern.slf4j.Slf4j;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -12,9 +14,10 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
 /**
+ * 
  * @author t_endo
- *
  */
+@Slf4j
 public class JobStartListener {
 
     // private EventBus eventBus;
@@ -33,10 +36,13 @@ public class JobStartListener {
         System.out.println("exec: " + job.getCommand());
 
         Client client = Client.create();
-        WebResource r = client.resource("http://localhost:12345/aa");
+        Node node = nodeDao.selectById(1);
+        WebResource r = client.resource(String.format("http://%s:12345/aa",
+                node.getHostName()));
 
         Object request = new Object();
-        String respose = r.type(MediaType.APPLICATION_JSON)
+        String response = r.type(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).post(String.class, request);
+        log.debug("response = {}", response);
     }
 }

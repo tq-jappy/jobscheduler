@@ -12,8 +12,6 @@ import jobscheduler.manager.dao.NodeDao;
 import jobscheduler.manager.entity.Node;
 import jobscheduler.manager.guice.persist.DomaTransactionAttribute;
 
-import com.google.inject.Inject;
-
 /**
  * 
  * @author t_endo
@@ -23,7 +21,7 @@ import com.google.inject.Inject;
 @DomaTransactionAttribute
 public class NodeResource {
 
-    @Inject
+    // @Inject
     private NodeDao dao;
 
     @GET
