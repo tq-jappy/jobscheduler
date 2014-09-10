@@ -12,6 +12,8 @@ import jobscheduler.manager.dao.NodeDao;
 import jobscheduler.manager.entity.Node;
 import jobscheduler.manager.guice.persist.DomaTransactionAttribute;
 
+import org.seasar.doma.jdbc.tx.TransactionManager;
+
 import com.google.inject.Inject;
 
 /**
@@ -24,16 +26,19 @@ import com.google.inject.Inject;
 public class NodeResource {
 
     @Inject
+    private TransactionManager tm;
+
+    @Inject
     private NodeDao dao;
 
     @GET
     public List<Node> getNodes() {
-        return dao.selectAll();
+        return tm.required(() -> dao.selectAll());
     }
 
     @GET
     @Path("{id}")
     public Node getNode(@PathParam("id") int id) {
-        return Node.builder().id(id).hostName("host: " + id).build();
+        return tm.required(() -> dao.selectById(id));
     }
 }

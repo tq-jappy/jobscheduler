@@ -38,9 +38,6 @@ public class CommonModule extends AbstractModule {
 
         bind(Config.class).toInstance(domaConfig);
 
-        // XXX: GuiceBundle を利用する場合、initialize 内では Configuration の
-        // インスタンスが取得できず、DomaConfig が初期化されないため、インジェクションしようとしても
-        // DaoImpl に渡す Configuration が null のため失敗してしまう。[dropwizard-guice #19]
         bind(NodeDao.class).to(NodeDaoImpl.class);
 
         bind(TransactionManager.class).toInstance(
