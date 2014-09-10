@@ -15,7 +15,6 @@ import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.tx.TransactionManager;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Provider;
 import com.google.inject.matcher.Matchers;
 
 /**
@@ -50,12 +49,8 @@ public class CommonModule extends AbstractModule {
         MethodInterceptor interceptor = new DomaLocalTxInterceptor();
         requestInjection(interceptor);
 
-        bind(NodeResource.class).toProvider(new Provider<NodeResource>() {
-            @Override
-            public NodeResource get() {
-                return new NodeResource();
-            }
-        });
+        NodeResource nodeResource = new NodeResource();
+        bind(NodeResource.class).toInstance(nodeResource);
 
         bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.any(),
                 interceptor);
@@ -63,6 +58,10 @@ public class CommonModule extends AbstractModule {
                 Matchers.any(), interceptor);
         bindInterceptor(Matchers.any(),
                 Matchers.annotatedWith(DomaTransactionAttribute.class),
+                interceptor);
+
+        requestInjection(nodeResource);
+        bindInterceptor(Matchers.identicalTo(nodeResource), Matchers.any(),
                 interceptor);
     }
 }

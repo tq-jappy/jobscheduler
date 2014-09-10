@@ -75,8 +75,6 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
 
         Injector injector = Guice.createInjector(new CommonModule(domaConfig));
 
-        NodeResource nodeResource = new NodeResource();
-        injector.injectMembers(nodeResource);
-        environment.jersey().register(nodeResource);
+        environment.jersey().register(injector.getInstance(NodeResource.class));
     }
 }
