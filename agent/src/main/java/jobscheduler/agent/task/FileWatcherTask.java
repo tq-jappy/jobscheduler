@@ -10,6 +10,8 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.concurrent.Callable;
 
+import jobscheduler.agent.dto.JobParameter;
+
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 
@@ -17,7 +19,7 @@ import com.google.inject.assistedinject.Assisted;
  * 
  * @author t_endo
  */
-public class FileWatcherTask implements Callable<String> {
+public class FileWatcherTask implements Callable<String>, JobTask {
 
     private Path file;
 
@@ -27,8 +29,8 @@ public class FileWatcherTask implements Callable<String> {
     private WatchKey watchKey;
 
     @Inject
-    public FileWatcherTask(@Assisted String path) throws IOException {
-        file = Paths.get(path);
+    public FileWatcherTask(@Assisted JobParameter param) throws IOException {
+        file = Paths.get(param.getPath());
 
         watcher = FileSystems.getDefault().newWatchService();
         watchKey = file.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,

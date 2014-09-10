@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import jobscheduler.agent.task.FileWatcherTask;
+import jobscheduler.agent.task.JobTask;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -24,7 +25,7 @@ public class AgentModule extends AbstractModule {
      */
     @Override
     protected void configure() {
-        install(new FactoryModuleBuilder().implement(FileWatcherTask.class,
+        install(new FactoryModuleBuilder().implement(JobTask.class,
                 FileWatcherTask.class).build(TaskFactory.class));
     }
 

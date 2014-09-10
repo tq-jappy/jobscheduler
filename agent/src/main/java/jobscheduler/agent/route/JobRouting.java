@@ -42,9 +42,10 @@ public class JobRouting {
 
     public Route create() {
         return (request, response) -> {
-            JobRequest jobRequest = readFrom(request, JobRequest.class);
+            JobRequest req = readFrom(request, JobRequest.class);
 
-            FileWatcherTask task = taskFactory.create(jobRequest.getMessage());
+            FileWatcherTask task = taskFactory.createFileWatcherTask(req
+                    .getJobParameter());
             map.put(task);
 
             executorService.submit(task);
@@ -55,7 +56,6 @@ public class JobRouting {
 
     public Route delete() {
         return (request, response) -> {
-            executorService.shutdown();
             return null;
         };
     }

@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import jobscheduler.agent.dto.JobParameter;
 import jobscheduler.agent.guice.AgentModule;
 import jobscheduler.agent.guice.TaskFactory;
 
@@ -30,7 +31,9 @@ public class FileWatcherTaskTest {
         Injector injector = Guice.createInjector(new AgentModule());
         TaskFactory factory = injector.getInstance(TaskFactory.class);
 
-        FileWatcherTask task = factory.create(tempFolder.getRoot().getPath());
+        JobParameter param = JobParameter.builder()
+                .path(tempFolder.getRoot().getPath()).build();
+        FileWatcherTask task = factory.createFileWatcherTask(param);
 
         ExecutorService exec = Executors.newFixedThreadPool(2);
         Future<String> future = exec.submit(task);

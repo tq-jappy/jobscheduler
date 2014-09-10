@@ -3,9 +3,13 @@ package jobscheduler.agent.dto;
 import lombok.Data;
 import lombok.experimental.Builder;
 
+/**
+ * @author t_endo
+ *
+ */
 @Data
 @Builder
-public class JobRequest {
+public class JobParameter {
 
-    JobParameter jobParameter;
+    String path;
 }

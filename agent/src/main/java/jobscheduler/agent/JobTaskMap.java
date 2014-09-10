@@ -1,6 +1,8 @@
 package jobscheduler.agent;
 
-import jobscheduler.agent.task.FileWatcherTask;
+import java.util.concurrent.ConcurrentHashMap;
+
+import jobscheduler.agent.task.JobTask;
 
 import com.google.inject.Singleton;
 
@@ -10,7 +12,9 @@ import com.google.inject.Singleton;
 @Singleton
 public class JobTaskMap {
 
-    public void put(FileWatcherTask task) {
+    ConcurrentHashMap<Integer, JobTask> map;
+
+    public void put(JobTask task) {
 
     }
 }

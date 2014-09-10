@@ -1,5 +1,6 @@
 package jobscheduler.agent.guice;
 
+import jobscheduler.agent.dto.JobParameter;
 import jobscheduler.agent.task.FileWatcherTask;
 
 /**
@@ -10,8 +11,8 @@ public interface TaskFactory {
 
     /**
      * 
-     * @param path
+     * @param param
      * @return
      */
-    public FileWatcherTask create(String path);
+    public FileWatcherTask createFileWatcherTask(JobParameter param);
 }
