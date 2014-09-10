@@ -8,7 +8,6 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import java.util.concurrent.Callable;
 
 import jobscheduler.agent.dto.JobParameter;
 
@@ -19,7 +18,7 @@ import com.google.inject.assistedinject.Assisted;
  * 
  * @author t_endo
  */
-public class FileWatcherTask implements Callable<String>, JobTask {
+public class FileWatcherTask implements JobTask {
 
     private Path file;
 
@@ -45,9 +44,8 @@ public class FileWatcherTask implements Callable<String>, JobTask {
      * {@inheritDoc}
      */
     @Override
-    public String call() throws Exception {
+    public void run() {
         System.out.println("call.");
-        String a = null;
 
         while (watchKey.isValid()) {
 
@@ -60,13 +58,11 @@ public class FileWatcherTask implements Callable<String>, JobTask {
                     continue;
                 }
 
-                Object context = event.context();
+                // Object context = event.context();
                 if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
-                    a = context.toString();
                     watchKey.cancel();
                     break;
                 } else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
-                    a = context.toString();
                     watchKey.cancel();
                     break;
                 }
@@ -77,7 +73,5 @@ public class FileWatcherTask implements Callable<String>, JobTask {
                 break;
             }
         }
-
-        return a;
     }
 }

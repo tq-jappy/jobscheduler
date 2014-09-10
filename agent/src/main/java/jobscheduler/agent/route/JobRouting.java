@@ -3,6 +3,7 @@ package jobscheduler.agent.route;
 import static jobscheduler.agent.transformer.RequestBodyReader.*;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
 import jobscheduler.agent.JobTaskMap;
@@ -14,8 +15,9 @@ import spark.Route;
 import com.google.inject.Inject;
 
 /**
+ * ジョブ管理系APIの {@link Route} 定義
+ * 
  * @author t_endo
- *
  */
 public class JobRouting {
 
@@ -30,7 +32,10 @@ public class JobRouting {
 
     public Route findAll() {
         return (request, response) -> {
-            return null;
+            executorService.submit(() -> {
+                System.out.println("dummy!");
+            });
+            return "OK";
         };
     }
 
@@ -48,7 +53,7 @@ public class JobRouting {
                     .getJobParameter());
             map.put(task);
 
-            executorService.submit(task);
+            CompletableFuture.runAsync(task, executorService);
 
             return Optional.empty();
         };

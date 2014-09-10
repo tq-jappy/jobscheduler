@@ -1,9 +1,9 @@
 package jobscheduler.agent.task;
 
 /**
+ * 
  * @author t_endo
- *
  */
-public interface JobTask {
+public interface JobTask extends Runnable {
 
 }

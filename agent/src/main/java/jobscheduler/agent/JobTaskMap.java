@@ -7,6 +7,8 @@ import jobscheduler.agent.task.JobTask;
 import com.google.inject.Singleton;
 
 /**
+ * 実行されているジョブタスクを開始、停止できるように保持しておくためのマップ
+ * 
  * @author t_endo
  */
 @Singleton

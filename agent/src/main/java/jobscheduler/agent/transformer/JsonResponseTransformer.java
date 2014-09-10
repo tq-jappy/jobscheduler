@@ -1,10 +1,12 @@
 package jobscheduler.agent.transformer;
 
+import spark.Response;
 import spark.ResponseTransformer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
+ * {@link Response} の変換(JSON文字列にする)
  * 
  * @author t_endo
  */
