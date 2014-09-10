@@ -1,11 +1,10 @@
 package jobscheduler.agent.transformer;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 import spark.Request;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -20,14 +19,14 @@ public class RequestBodyReader {
      * @param request
      * @param valueType
      * @return
-     * @throws JsonMappingException
-     * @throws JsonParseException
-     * @throws IOException
      */
-    public <T> T readFrom(Request request, Class<T> valueType)
-            throws JsonMappingException, JsonParseException, IOException {
-        ObjectMapper mapper = new ObjectMapper();
+    public static <T> T readFrom(Request request, Class<T> valueType) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(request.body(), valueType);
+            return mapper.readValue(request.body(), valueType);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }

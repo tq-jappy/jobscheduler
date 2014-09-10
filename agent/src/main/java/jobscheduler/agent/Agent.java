@@ -1,12 +1,12 @@
 package jobscheduler.agent;
 
 import static spark.Spark.*;
+import static spark.SparkBase.*;
 import jobscheduler.agent.dto.JobResult;
 import jobscheduler.agent.guice.AgentModule;
-import jobscheduler.agent.route.PostJobs;
+import jobscheduler.agent.route.JobRouting;
 import jobscheduler.agent.transformer.JsonResponseTransformer;
 import spark.ResponseTransformer;
-import spark.Route;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Guice;
@@ -22,8 +22,8 @@ public class Agent {
         ResponseTransformer transformer = new JsonResponseTransformer();
 
         Injector injector = Guice.createInjector(new AgentModule());
-
-        Route postJobs = injector.getInstance(PostJobs.class);
+        ;
+        JobRouting jobs = injector.getInstance(JobRouting.class);
 
         before((request, response) -> {
             System.out.printf("[%s] - %s%n", request.requestMethod(),
@@ -43,15 +43,13 @@ public class Agent {
             return "OK";
         });
 
-        get("/jobs/:id", (request, response) -> {
-            return "OK";
-        });
+        get("/jobs", jobs.findAll());
 
-        post("/jobs", postJobs);
+        get("/jobs/:id", jobs.find());
 
-        delete("/jobs/:id", (request, response) -> {
-            return "OK";
-        });
+        post("/jobs", jobs.create());
+
+        delete("/jobs/:id", jobs.delete());
 
         get("/properties", (request, response) -> {
             return "OK";
