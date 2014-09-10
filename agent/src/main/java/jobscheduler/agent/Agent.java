@@ -1,10 +1,9 @@
 package jobscheduler.agent;
 
-import jobscheduler.agent.resource.v1.AgentResource;
-
-import com.sun.jersey.api.container.httpserver.HttpServerFactory;
-import com.sun.jersey.api.core.ClassNamesResourceConfig;
-import com.sun.net.httpserver.HttpServer;
+import static spark.Spark.*;
+import jobscheduler.agent.dto.JobResult;
+import jobscheduler.agent.transformer.JsonResponseTransformer;
+import spark.ResponseTransformer;
 
 /**
  * 
@@ -13,19 +12,45 @@ import com.sun.net.httpserver.HttpServer;
 public class Agent {
 
     public static void main(String... args) throws Exception {
-        ClassNamesResourceConfig config = new ClassNamesResourceConfig(
-                AgentResource.class);
-        config.getProperties().put(
-                "com.sun.jersey.spi.container.ContainerRequestFilters",
-                "com.sun.jersey.api.container.filter.LoggingFilter");
+        ResponseTransformer transformer = new JsonResponseTransformer();
 
-        HttpServer server = HttpServerFactory.create("http://localhost:4444/",
-                config);
+        before((request, response) -> {
+            System.out.printf("[%s] - %s%n", request.requestMethod(),
+                    request.pathInfo());
+        });
 
+        get("/hello", (request, response) -> {
+            return JobResult.builder().message("hello").build();
+        }, transformer);
+
+        get("/status", (request, response) -> {
+            return "OK";
+        });
+
+        get("/jobs/:id", (request, response) -> {
+            return "OK";
+        });
+
+        post("/jobs", (request, response) -> {
+            String remoteHost = request.ip();
+            return "OK: " + remoteHost;
+        });
+
+        delete("/jobs/:id", (request, response) -> {
+            return "OK";
+        });
+
+        get("/properties", (request, response) -> {
+            return "OK";
+        });
+
+        get("/log", (request, response) -> {
+            return "OK";
+        });
+
+        // 不要??
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            server.stop(0);
+            stop();
         }));
-
-        server.start();
     }
 }

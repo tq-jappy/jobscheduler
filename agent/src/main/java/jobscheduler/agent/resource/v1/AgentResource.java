@@ -1,5 +1,6 @@
 package jobscheduler.agent.resource.v1;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,8 +22,8 @@ public class AgentResource {
     @Context
     private UriInfo context;
 
-    // @Context
-    // private HttpServletRequest httpServletRequest;
+    @Context
+    private HttpServletRequest httpServletRequest;
 
     @GET
     @Path("/status")
