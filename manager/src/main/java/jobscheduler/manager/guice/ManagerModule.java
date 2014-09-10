@@ -13,8 +13,8 @@ public class ManagerModule extends AbstractModule {
      */
     @Override
     protected void configure() {
-        install(new CommonModule());
-        install(new EventModule());
-        install(new QuartzModule());
+        // install(new CommonModule());
+        // install(new EventModule());
+        // install(new QuartzModule());
     }
 }

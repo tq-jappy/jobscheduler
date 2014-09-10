@@ -20,7 +20,10 @@ dependencies {
 
     compile 'io.dropwizard:dropwizard-client:0.7.1'
 
-    compile 'com.hubspot.dropwizard:dropwizard-guice:0.7.0.2'
+    // compile 'com.hubspot.dropwizard:dropwizard-guice:0.7.0.2'
+    // compile 'org.fizmo:dropwizard-bundle-guice:0.6.2-1.0.0'
+    // compile 'com.sun.jersey.contribs:jersey-guice:1.18.1'
+
     compile 'org.eclipse.jetty.websocket:websocket-server:9.0.7.v20131107'
     compile 'com.google.inject:guice:3.0'
     compile 'org.quartz-scheduler:quartz:2.2.1'

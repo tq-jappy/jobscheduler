@@ -1,7 +1,11 @@
 package jobscheduler.manager;
 
-import org.junit.Ignore;
+import static org.junit.Assume.*;
+
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 /**
  * @author t_endo
@@ -9,20 +13,30 @@ import org.junit.Test;
  */
 public class ManagerApplicationTest {
 
+    @Rule
+    public TestName testName = new TestName();
+
+    final String test = "server";
+
+    @Before
+    public void setUp() {
+        assumeTrue(testName.getMethodName().equals(test));
+    }
+
     @Test
     public void check() throws Exception {
         ManagerApplication app = new ManagerApplication();
         app.run(new String[] { "check", "setting/configuration.yml" });
     }
 
-    @Ignore
-    public void test() throws Exception {
+    @Test
+    public void server() throws Exception {
         ManagerApplication app = new ManagerApplication();
         app.run(new String[] { "server", "setting/configuration.yml" });
     }
 
     @Test
-    public void test2() throws Exception {
+    public void dbmigrate() throws Exception {
         ManagerApplication app = new ManagerApplication();
         app.run(new String[] { "db", "migrate", // "--dry-run",
                 "setting/configuration.yml" });

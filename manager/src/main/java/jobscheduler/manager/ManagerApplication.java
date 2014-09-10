@@ -7,9 +7,12 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import jobscheduler.manager.doma.DomaBundle;
-import jobscheduler.manager.guice.ManagerModule;
+import jobscheduler.manager.doma.DomaConfig;
+import jobscheduler.manager.guice.CommonModule;
+import jobscheduler.manager.resource.v1.NodeResource;
 
-import com.hubspot.dropwizard.guice.GuiceBundle;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * Application main entry class.
@@ -17,6 +20,8 @@ import com.hubspot.dropwizard.guice.GuiceBundle;
  * @author t_endo
  */
 public class ManagerApplication extends Application<ManagerConfiguration> {
+
+    private DomaBundle<ManagerConfiguration> domaBundle;
 
     /**
      * main
@@ -38,8 +43,7 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
     @Override
     public void initialize(Bootstrap<ManagerConfiguration> bootstrap) {
         // Doma
-        DomaBundle<ManagerConfiguration> domaBundle = new DomaBundle<ManagerConfiguration>(
-                "doma") {
+        this.domaBundle = new DomaBundle<ManagerConfiguration>("doma") {
             @Override
             public DataSourceFactory getDataSourceFactory(
                     ManagerConfiguration configuration) {
@@ -47,14 +51,6 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
             }
         };
         bootstrap.addBundle(domaBundle);
-
-        // Guice
-        GuiceBundle<ManagerConfiguration> guiceBundle = GuiceBundle
-                .<ManagerConfiguration> newBuilder()
-                .addModule(new ManagerModule())
-                .enableAutoConfig(getClass().getPackage().getName())
-                .setConfigClass(ManagerConfiguration.class).build();
-        bootstrap.addBundle(guiceBundle);
 
         bootstrap.addBundle(new AssetsBundle("/assets", "/app", "index.html",
                 "assets"));
@@ -75,8 +71,12 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
     @Override
     public void run(ManagerConfiguration configuration, Environment environment)
             throws Exception {
-        // environment.jersey().register(new RootResource());
-        // environment.jersey().register(injector.getInstance(NodeResource.class));
-        // environment.jersey().register(NodeResource.class);
+        DomaConfig domaConfig = domaBundle.getDomaConfig();
+
+        Injector injector = Guice.createInjector(new CommonModule(domaConfig));
+
+        NodeResource nodeResource = new NodeResource();
+        injector.injectMembers(nodeResource);
+        environment.jersey().register(nodeResource);
     }
 }
