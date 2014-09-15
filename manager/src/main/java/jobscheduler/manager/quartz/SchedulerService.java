@@ -1,5 +1,7 @@
 package jobscheduler.manager.quartz;
 
+import io.dropwizard.lifecycle.Managed;
+
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.spi.JobFactory;
@@ -11,7 +13,7 @@ import com.google.inject.Inject;
  * 
  * @author t_endo
  */
-public class SchedulerService {
+public class SchedulerService implements Managed {
 
     private Scheduler scheduler;
 
@@ -23,11 +25,13 @@ public class SchedulerService {
         this.jobFactory = jobFactory;
     }
 
+    @Override
     public void start() throws SchedulerException {
         scheduler.setJobFactory(jobFactory);
         scheduler.start();
     }
 
+    @Override
     public void stop() throws SchedulerException {
         scheduler.shutdown();
     }

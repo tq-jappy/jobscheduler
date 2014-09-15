@@ -9,6 +9,7 @@ import io.dropwizard.setup.Environment;
 import jobscheduler.manager.doma.DomaBundle;
 import jobscheduler.manager.doma.DomaConfig;
 import jobscheduler.manager.guice.CommonModule;
+import jobscheduler.manager.quartz.SchedulerService;
 import jobscheduler.manager.resource.v1.NodeResource;
 
 import com.google.inject.Guice;
@@ -76,5 +77,8 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
         Injector injector = Guice.createInjector(new CommonModule(domaConfig));
 
         environment.jersey().register(injector.getInstance(NodeResource.class));
+
+        environment.lifecycle().manage(
+                injector.getInstance(SchedulerService.class));
     }
 }
