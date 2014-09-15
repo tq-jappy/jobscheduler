@@ -8,11 +8,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import jobscheduler.manager.dao.NodeDao;
 import jobscheduler.manager.entity.Node;
-import jobscheduler.manager.guice.persist.DomaTransactionAttribute;
-
-import org.seasar.doma.jdbc.tx.TransactionManager;
+import jobscheduler.manager.service.NodeService;
 
 import com.google.inject.Inject;
 
@@ -22,23 +19,19 @@ import com.google.inject.Inject;
  */
 @Path("/node")
 @Produces(MediaType.APPLICATION_JSON)
-@DomaTransactionAttribute
 public class NodeResource {
 
     @Inject
-    private TransactionManager tm;
-
-    @Inject
-    private NodeDao dao;
+    private NodeService nodeService;
 
     @GET
     public List<Node> getNodes() {
-        return tm.required(() -> dao.selectAll());
+        return nodeService.findAll();
     }
 
     @GET
     @Path("{id}")
     public Node getNode(@PathParam("id") int id) {
-        return tm.required(() -> dao.selectById(id));
+        return nodeService.findById(id);
     }
 }

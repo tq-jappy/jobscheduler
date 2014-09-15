@@ -30,7 +30,7 @@ public class Node {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(sequence = "NODE_SEQ")
     @JsonProperty
-    int id;
+    Integer id;
 
     /**
      * host name or IP address

@@ -1,8 +1,8 @@
 package jobscheduler.manager.guice;
 
-import java.util.Objects;
+import static com.google.inject.matcher.Matchers.*;
 
-import javax.ws.rs.Path;
+import java.util.Objects;
 
 import jobscheduler.manager.dao.NodeDao;
 import jobscheduler.manager.dao.NodeDaoImpl;
@@ -49,16 +49,9 @@ public class CommonModule extends AbstractModule {
         NodeResource nodeResource = new NodeResource();
         bind(NodeResource.class).toInstance(nodeResource);
 
-        bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.any(),
-                interceptor);
         bindInterceptor(Matchers.annotatedWith(DomaTransactionAttribute.class),
-                Matchers.any(), interceptor);
-        bindInterceptor(Matchers.any(),
-                Matchers.annotatedWith(DomaTransactionAttribute.class),
-                interceptor);
-
-        requestInjection(nodeResource);
-        bindInterceptor(Matchers.identicalTo(nodeResource), Matchers.any(),
+                any(), interceptor);
+        bindInterceptor(any(), annotatedWith(DomaTransactionAttribute.class),
                 interceptor);
     }
 }
