@@ -12,7 +12,7 @@ import com.google.inject.Singleton;
  * @author t_endo
  */
 @Singleton
-public class JobTaskMap {
+public class JobRegistry {
 
     ConcurrentHashMap<Integer, JobTask> map;
 

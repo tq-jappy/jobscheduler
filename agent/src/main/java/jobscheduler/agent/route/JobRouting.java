@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
-import jobscheduler.agent.JobTaskMap;
+import jobscheduler.agent.JobRegistry;
 import jobscheduler.agent.dto.JobRequest;
 import jobscheduler.agent.guice.TaskFactory;
 import jobscheduler.agent.task.FileWatcherTask;
@@ -22,7 +22,7 @@ import com.google.inject.Inject;
 public class JobRouting {
 
     @Inject
-    private JobTaskMap map;
+    private JobRegistry map;
 
     @Inject
     private TaskFactory taskFactory;
