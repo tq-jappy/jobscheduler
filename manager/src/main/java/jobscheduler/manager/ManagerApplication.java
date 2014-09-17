@@ -9,6 +9,7 @@ import io.dropwizard.setup.Environment;
 import jobscheduler.manager.doma.DomaBundle;
 import jobscheduler.manager.doma.DomaConfig;
 import jobscheduler.manager.guice.CommonModule;
+import jobscheduler.manager.guice.QuartzModule;
 import jobscheduler.manager.quartz.SchedulerService;
 import jobscheduler.manager.resource.v1.NodeResource;
 
@@ -35,7 +36,8 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
      */
     public static void main(String... args) throws Exception {
         ManagerApplication app = new ManagerApplication();
-        app.run(args);
+        // app.run(args);
+        app.run(new String[] { "server", "setting/configuration.yml" });
     }
 
     /**
@@ -74,7 +76,8 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
             throws Exception {
         DomaConfig domaConfig = domaBundle.getDomaConfig();
 
-        Injector injector = Guice.createInjector(new CommonModule(domaConfig));
+        Injector injector = Guice.createInjector(new CommonModule(domaConfig),
+                new QuartzModule());
 
         environment.jersey().register(injector.getInstance(NodeResource.class));
 
