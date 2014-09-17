@@ -17,7 +17,7 @@ import com.google.inject.Inject;
  * 
  * @author t_endo
  */
-@Path("/node")
+@Path("/api/v1/node")
 @Produces(MediaType.APPLICATION_JSON)
 public class NodeResource {
 
