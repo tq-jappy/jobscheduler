@@ -1,6 +1,7 @@
 package jobscheduler.manager;
 
 import static org.junit.Assume.*;
+import jobscheduler.manager.ManagerApplication;
 
 import org.junit.Before;
 import org.junit.Rule;
