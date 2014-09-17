@@ -1,1 +1,1 @@
-include 'manager', 'agent'
+include 'manager', 'ui', 'agent'
