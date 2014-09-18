@@ -30,8 +30,8 @@ menu.factory('Menu', function() {
 	var Menu = {};
 	Menu.items = [
 	    {
-	    	href: "#/view1",
-	    	name: "view1"
+	    	href: "#/nodes",
+	    	name: "Node"
 	    }
 	];
 	return Menu;
