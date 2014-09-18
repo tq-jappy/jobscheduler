@@ -1,14 +1,13 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('ui.nodes', ['ngRoute'])
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {
-    templateUrl: 'view1/view1.html',
-    controller: 'View1Ctrl'
-  });
+  $routeProvider
+    .when('/nodes',     { templateUrl: 'nodes/nodes.html', controller: 'NodeCtrl' });
+//    .when('/nodes/new', { templateUrl: 'nodes/new.html', controller: 'NodeCtrl' });
 }])
 
-.controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
+.controller('NodeCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.nodes = [];
     
     $http.get('/api/v1/node').success(function(data) {
