@@ -4,6 +4,7 @@
 angular.module('myApp', [
   'ui.bootstrap',
   'ngRoute',
+  'ui.menu',
   'myApp.view1',
   'myApp.view2',
   'myApp.version'
