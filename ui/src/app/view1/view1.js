@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('myApp.view1', ['ngRoute'])
-
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view1', {
     templateUrl: 'view1/view1.html',
@@ -14,7 +13,7 @@ angular.module('myApp.view1', ['ngRoute'])
 	
 	$http.get('/api/v1/node').success(function(data) {
 		$scope.nodes = data;
-		console.log("OK");
+		console.log("get data");
 	}).error(function(err) {
 		console.log("error");
 		console.log(err);
