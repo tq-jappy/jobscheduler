@@ -9,6 +9,14 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', [function() {
-
+.controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
+	$scope.nodes = [];
+	
+	$http.get('/api/v1/node').success(function(data) {
+		$scope.nodes = data;
+		console.log("OK");
+	}).error(function(err) {
+		console.log("error");
+		console.log(err);
+	});	
 }]);
