@@ -55,8 +55,12 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
         };
         bootstrap.addBundle(domaBundle);
 
-        bootstrap.addBundle(new AssetsBundle("/assets", "/app", "index.html",
+        // application root URL = http://xx.xx.xx.xx/manager/
+        String uriPath = "/manager";
+        bootstrap.addBundle(new AssetsBundle("/app", uriPath, "index.html",
                 "assets"));
+        bootstrap.addBundle(new AssetsBundle("/bower_components", uriPath
+                + "/bower_components", null, "bower_components"));
 
         // Migrations
         bootstrap.addBundle(new MigrationsBundle<ManagerConfiguration>() {
