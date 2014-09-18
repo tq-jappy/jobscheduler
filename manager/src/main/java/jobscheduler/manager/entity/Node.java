@@ -28,7 +28,7 @@ public class Node {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(sequence = "NODE_SEQ")
+    @SequenceGenerator(sequence = "NODE_ID_SEQ")
     @JsonProperty
     Integer id;
 

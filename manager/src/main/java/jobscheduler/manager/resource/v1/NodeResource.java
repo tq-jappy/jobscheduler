@@ -3,6 +3,7 @@ package jobscheduler.manager.resource.v1;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -33,5 +34,10 @@ public class NodeResource {
     @Path("{id}")
     public Node getNode(@PathParam("id") int id) {
         return nodeService.findById(id);
+    }
+
+    @POST
+    public Node postNode(Node node) {
+        return nodeService.create(node);
     }
 }

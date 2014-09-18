@@ -25,4 +25,9 @@ public class NodeService {
     public Node findById(int id) {
         return nodeDao.selectById(id);
     }
+
+    public Node create(Node node) {
+        nodeDao.insert(node);
+        return node;
+    }
 }
