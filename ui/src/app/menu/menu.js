@@ -32,11 +32,7 @@ menu.factory('Menu', function() {
 	    {
 	    	href: "#/view1",
 	    	name: "view1"
-	    },
-	    {
-	    	href: "#/view2",
-	    	name: "view2"
-	    }	
+	    }
 	];
 	return Menu;
 });
