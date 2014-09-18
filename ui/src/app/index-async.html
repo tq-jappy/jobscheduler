@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.min.css">
   <style>
     [ng-cloak] {
       display: none;
@@ -30,7 +32,9 @@
     $script([
       'bower_components/angular/angular.js',
       'bower_components/angular-route/angular-route.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'app.js',
+      'menu/menu.js',
       'view1/view1.js',
       'view2/view2.js',
       'components/version/version.js',
@@ -45,10 +49,9 @@
   <link rel="stylesheet" href="app.css">
 </head>
 <body ng-cloak>
-  <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul>
+  <div ng-controller="MenuCtrl">
+    <div menu></div>
+  </div>
 
   <div ng-view></div>
 
