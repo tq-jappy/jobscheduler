@@ -30,4 +30,13 @@ public class NodeService {
         nodeDao.insert(node);
         return node;
     }
+
+    public Node update(Node node) {
+        nodeDao.update(node);
+        return node;
+    }
+
+    public void delete(int id) {
+        nodeDao.delete(Node.builder().id(id).build());
+    }
 }
