@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ui.nodes', ['ngRoute'])
+angular.module('ui.nodes', ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
     .when('/nodes',          { templateUrl: 'nodes/index.html', controller: 'NodeListCtrl' })
@@ -8,17 +8,14 @@ angular.module('ui.nodes', ['ngRoute'])
     .when('/nodes/:id/edit', { templateUrl: 'nodes/edit.html',  controller: 'NodeEditCtrl' });    
 }])
 
-.controller('NodeListCtrl', ['$scope', '$modal', '$http', '$routeParams', function($scope, $modal, $http, $routeParams) {
-    $scope.nodes = [];
+.controller('NodeListCtrl', ['$scope', '$modal', '$http', '$resource', '$routeParams', function($scope, $modal, $http, $resource, $routeParams) {
+    var Node = $resource("/api/v1/nodes");
     
-    $http.get('/api/v1/nodes').success(function(data) {
-        $scope.nodes = data;
+    $scope.nodes = Node.query(function() {
         console.log("get data");
-    }).error(function(err) {
-        console.log("error");
-        console.log(err);
+        console.log($scope.nodes);
     });
-    
+ 
     $scope.deleteNode = function(id) {
         console.log("delete - id : " + id);
         
