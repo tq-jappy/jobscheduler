@@ -8,9 +8,13 @@ angular.module('ui.nodes', ['ngRoute', 'ngResource'])
     .when('/nodes/:id/edit', { templateUrl: 'nodes/edit.html',  controller: 'NodeEditCtrl' });    
 }])
 
-.controller('NodeListCtrl', ['$scope', '$modal', '$http', '$resource', '$routeParams', function($scope, $modal, $http, $resource, $routeParams) {
+.factory("Node", function($resource) {
     var Node = $resource("/api/v1/nodes");
-    
+    return Node;
+})
+
+.controller('NodeListCtrl', function($scope, $modal, $http, $resource, $routeParams, Node) {
+ 
     $scope.nodes = Node.query(function() {
         console.log("get data");
         console.log($scope.nodes);
@@ -27,24 +31,21 @@ angular.module('ui.nodes', ['ngRoute', 'ngResource'])
             console.log(data);
         });
     };      
-}])
+})
 
-.controller('NodeNewCtrl', ['$scope', '$modal', '$http', function($scope, $modal, $http) {
+.controller('NodeNewCtrl', function($scope, $location, $modal, $http, Node) {
     $scope.formData = {};
     
     $scope.createNode = function() {
-        console.log($scope.formData);
-        $http.post('/api/v1/nodes', $scope.formData).success(function(data) {
-            $scope.formData = {};           
-            console.log('Success');
-        }).error(function(data) {
-            console.log('Error');
-            console.log(data);
+        Node.save($scope.formData, function(node) {
+          // 作成に成功したら一覧に戻る
+          $location.path("/");
         });
+        $scope.formData = {};
     };  
-}])
+})
 
-.controller('NodeEditCtrl', ['$scope', '$modal', '$http', '$routeParams', function($scope, $modal, $http, $routeParams) {
+.controller('NodeEditCtrl', function($scope, $modal, $http, $routeParams) {
     $scope.formData = {};
     
     $http.get('/api/v1/nodes/' + $routeParams.id).success(function(data) {
@@ -65,4 +66,4 @@ angular.module('ui.nodes', ['ngRoute', 'ngResource'])
             console.log(data);
         });
     };      
-}]);
+});
