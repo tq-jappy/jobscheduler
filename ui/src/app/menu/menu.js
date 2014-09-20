@@ -20,7 +20,7 @@ menu.controller('MenuCtrl', function($scope, $location, Menu) {
 menu.directive('menu', function() {
 	return {
 		restrict: "A",
-		template: '<ul class="menu">' +
+		template: '<ul class="nav">' +
 			'<li ng-repeat="item in menu.items" ng-class="getClass(item)"><a href="{{ item.href }}">{{ item.name }}</a></li>' +
 			'</ul>'
 	};
