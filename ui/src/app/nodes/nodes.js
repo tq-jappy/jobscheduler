@@ -9,27 +9,24 @@ angular.module('ui.nodes', ['ngRoute', 'ngResource'])
 }])
 
 .factory("Node", function($resource) {
-    var Node = $resource("/api/v1/nodes");
+    var Node = $resource("/api/v1/nodes/:id", {}, {
+        'update': {method: 'PUT', params: {id: '@id'}},
+        'remove': {method: 'DELETE', params: {id: '@id'}}
+    });
     return Node;
 })
 
 .controller('NodeListCtrl', function($scope, $modal, $http, $resource, $routeParams, Node) {
  
     $scope.nodes = Node.query(function() {
-        console.log("get data");
+        console.log("get nodes");
         console.log($scope.nodes);
     });
  
     $scope.deleteNode = function(id) {
         console.log("delete - id : " + id);
-        
-        $http.delete('/api/v1/nodes/' + id).success(function(data) {       
-            console.log('Success delete');
-            console.log(data);
-        }).error(function(data) {
-            console.log('Error');
-            console.log(data);
-        });
+        Node.delete({ id: id });
+        $scope.nodes = Node.query();           
     };      
 })
 
@@ -38,32 +35,28 @@ angular.module('ui.nodes', ['ngRoute', 'ngResource'])
     
     $scope.createNode = function() {
         Node.save($scope.formData, function(node) {
-          // 作成に成功したら一覧に戻る
           $location.path("/");
         });
         $scope.formData = {};
     };  
 })
 
-.controller('NodeEditCtrl', function($scope, $modal, $http, $routeParams) {
+.controller('NodeEditCtrl', function($scope, $location, $modal, $http, $routeParams, Node) {
     $scope.formData = {};
     
-    $http.get('/api/v1/nodes/' + $routeParams.id).success(function(data) {
-        $scope.node = data;
-        console.log("get data with id: " + $routeParams.id);
-    }).error(function(err) {
-        console.log("error");
-        console.log(err);
-    });
+    Node.get({id: $routeParams.id}, function(node) {
+        console.log("get node");
+        console.log(node);
+        $scope.node = node;
+    });    
 
     $scope.updateNode = function() {
+        console.log("updating.");
         console.log($scope.node);
         
-        $http.put('/api/v1/nodes/' + $routeParams.id, $scope.node).success(function(data) {       
-            console.log('Success update');
-        }).error(function(data) {
-            console.log('Error');
-            console.log(data);
+        $scope.node.$update({}, function() {
+           console.log('Success update');
+           $location.path("/");
         });
     };      
 });
