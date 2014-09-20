@@ -8,6 +8,14 @@ angular.module('myApp', [
   'ui.nodes',
   'myApp.version'
 ]).
+
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/nodes'});
-}]);
+}]).
+
+factory("AlertService", function() {
+    return {
+        alerts: []
+    };
+});
+

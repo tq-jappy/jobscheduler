@@ -16,8 +16,9 @@ angular.module('ui.nodes', ['ngRoute', 'ngResource'])
     return Node;
 })
 
-.controller('NodeListCtrl', function($scope, $modal, $http, $resource, $routeParams, Node) {
- 
+.controller('NodeListCtrl', function($scope, $modal, $http, $resource, $routeParams, Node, AlertService) {    
+    $scope.alerts = AlertService;
+    
     $scope.nodes = Node.query(function() {
         console.log("get nodes");
         console.log($scope.nodes);
@@ -27,21 +28,23 @@ angular.module('ui.nodes', ['ngRoute', 'ngResource'])
         console.log("delete - id : " + id);
         Node.delete({ id: id });
         $scope.nodes = Node.query();           
-    };      
+        AlertService.alerts = [ { type: 'success', msg: 'Deleted node with id: ' + id } ];
+    };
 })
 
-.controller('NodeNewCtrl', function($scope, $location, $modal, $http, Node) {
+.controller('NodeNewCtrl', function($scope, $rootScope, $location, $modal, $http, Node, AlertService) {
     $scope.formData = {};
     
     $scope.createNode = function() {
         Node.save($scope.formData, function(node) {
+          AlertService.alerts = [ {type: 'success', msg: 'New node created.'} ];
           $location.path("/");
         });
         $scope.formData = {};
-    };  
+    };    
 })
 
-.controller('NodeEditCtrl', function($scope, $location, $modal, $http, $routeParams, Node) {
+.controller('NodeEditCtrl', function($scope, $location, $modal, $http, $routeParams, Node, AlertService) {
     $scope.formData = {};
     
     Node.get({id: $routeParams.id}, function(node) {
@@ -56,6 +59,7 @@ angular.module('ui.nodes', ['ngRoute', 'ngResource'])
         
         $scope.node.$update({}, function() {
            console.log('Success update');
+           AlertService.alerts = [ {type: 'success', msg: 'Node updated.'} ];
            $location.path("/");
         });
     };      
