@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>My AngularJS App</title>
+<title>JobWizard</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -27,14 +27,19 @@
 </head>
 <body>
     <div class="container">
-        <div class="navber navbar-default navbar-fixed-top"
+        <div class="navber navbar-inverse navbar-fixed-top"
             ng-controller="MenuCtrl">
+
             <div class="container-fluid">
-                <div class="navbar-header" menu></div>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">JobWizard</a>
+                </div>
+                <div class="collapse navbar-collapse"
+                    id="bs-example-navbar-collapse-1" menu></div>
             </div>
         </div>
 
-        <div style="padding-top: 50px;" ng-view></div>
+        <div ng-view></div>
 
         <div>
             Angular seed app: v<span app-version></span>
