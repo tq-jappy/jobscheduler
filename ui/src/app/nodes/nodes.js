@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ui.nodes', ['ngRoute'])
+angular.module('ui.nodes', ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
     .when('/nodes',          { templateUrl: 'nodes/index.html', controller: 'NodeListCtrl' })
@@ -8,64 +8,55 @@ angular.module('ui.nodes', ['ngRoute'])
     .when('/nodes/:id/edit', { templateUrl: 'nodes/edit.html',  controller: 'NodeEditCtrl' });    
 }])
 
-.controller('NodeListCtrl', ['$scope', '$modal', '$http', '$routeParams', function($scope, $modal, $http, $routeParams) {
-    $scope.nodes = [];
-    
-    $http.get('/api/v1/nodes').success(function(data) {
-        $scope.nodes = data;
-        console.log("get data");
-    }).error(function(err) {
-        console.log("error");
-        console.log(err);
+.factory("Node", function($resource) {
+    var Node = $resource("/api/v1/nodes/:id", {}, {
+        'update': {method: 'PUT', params: {id: '@id'}},
+        'remove': {method: 'DELETE', params: {id: '@id'}}
     });
-    
+    return Node;
+})
+
+.controller('NodeListCtrl', function($scope, $modal, $http, $resource, $routeParams, Node) {
+ 
+    $scope.nodes = Node.query(function() {
+        console.log("get nodes");
+        console.log($scope.nodes);
+    });
+ 
     $scope.deleteNode = function(id) {
         console.log("delete - id : " + id);
-        
-        $http.delete('/api/v1/nodes/' + id).success(function(data) {       
-            console.log('Success delete');
-            console.log(data);
-        }).error(function(data) {
-            console.log('Error');
-            console.log(data);
-        });
+        Node.delete({ id: id });
+        $scope.nodes = Node.query();           
     };      
-}])
+})
 
-.controller('NodeNewCtrl', ['$scope', '$modal', '$http', function($scope, $modal, $http) {
+.controller('NodeNewCtrl', function($scope, $location, $modal, $http, Node) {
     $scope.formData = {};
     
     $scope.createNode = function() {
-        console.log($scope.formData);
-        $http.post('/api/v1/nodes', $scope.formData).success(function(data) {
-            $scope.formData = {};           
-            console.log('Success');
-        }).error(function(data) {
-            console.log('Error');
-            console.log(data);
+        Node.save($scope.formData, function(node) {
+          $location.path("/");
         });
+        $scope.formData = {};
     };  
-}])
+})
 
-.controller('NodeEditCtrl', ['$scope', '$modal', '$http', '$routeParams', function($scope, $modal, $http, $routeParams) {
+.controller('NodeEditCtrl', function($scope, $location, $modal, $http, $routeParams, Node) {
     $scope.formData = {};
     
-    $http.get('/api/v1/nodes/' + $routeParams.id).success(function(data) {
-        $scope.node = data;
-        console.log("get data with id: " + $routeParams.id);
-    }).error(function(err) {
-        console.log("error");
-        console.log(err);
-    });
+    Node.get({id: $routeParams.id}, function(node) {
+        console.log("get node");
+        console.log(node);
+        $scope.node = node;
+    });    
 
     $scope.updateNode = function() {
+        console.log("updating.");
         console.log($scope.node);
         
-        $http.put('/api/v1/nodes/' + $routeParams.id, $scope.node).success(function(data) {       
-            console.log('Success update');
-        }).error(function(data) {
-            console.log('Error');
-            console.log(data);
+        $scope.node.$update({}, function() {
+           console.log('Success update');
+           $location.path("/");
         });
     };      
-}]);
+});
