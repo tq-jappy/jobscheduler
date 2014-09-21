@@ -4,10 +4,13 @@ import static com.google.inject.matcher.Matchers.*;
 
 import java.util.Objects;
 
+import jobscheduler.manager.dao.JobDao;
+import jobscheduler.manager.dao.JobDaoImpl;
 import jobscheduler.manager.dao.NodeDao;
 import jobscheduler.manager.dao.NodeDaoImpl;
 import jobscheduler.manager.guice.persist.DomaLocalTxInterceptor;
 import jobscheduler.manager.guice.persist.DomaTransactionAttribute;
+import jobscheduler.manager.resource.v1.JobResource;
 import jobscheduler.manager.resource.v1.NodeResource;
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -39,6 +42,7 @@ public class CommonModule extends AbstractModule {
         bind(Config.class).toInstance(domaConfig);
 
         bind(NodeDao.class).to(NodeDaoImpl.class);
+        bind(JobDao.class).to(JobDaoImpl.class);
 
         bind(TransactionManager.class).toInstance(
                 domaConfig.getTransactionManager());
@@ -48,6 +52,9 @@ public class CommonModule extends AbstractModule {
 
         NodeResource nodeResource = new NodeResource();
         bind(NodeResource.class).toInstance(nodeResource);
+
+        JobResource jobResource = new JobResource();
+        bind(JobResource.class).toInstance(jobResource);
 
         bindInterceptor(Matchers.annotatedWith(DomaTransactionAttribute.class),
                 any(), interceptor);
