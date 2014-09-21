@@ -1,0 +1,29 @@
+<alert ng-repeat="alert in alerts.alerts" type="{{alert.type}}"
+    close="closeAlert($index)">{{alert.msg}}</alert>
+
+<h3>Job List</h3>
+
+<a href="#/jobs/new" class="btn btn-primary">New</a>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="job in jobs">
+            <td>{{ job.id }}</td>
+            <td>{{ job.hostName }}</td>
+            <td><a class="btn btn-sm btn-default"
+                ng-href="#/jobs/{{ job.id }}/edit"> <i
+                    class="glyphicon glyphicon-edit"></i>
+            </a> <a class="btn btn-sm btn-default"
+                ng-click="deleteJob(job.id)"> <i
+                    class="glyphicon glyphicon-trash"></i>
+            </a></td>
+        </tr>
+    </tbody>
+</table>

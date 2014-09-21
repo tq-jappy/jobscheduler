@@ -11,6 +11,7 @@ import jobscheduler.manager.doma.DomaConfig;
 import jobscheduler.manager.guice.CommonModule;
 import jobscheduler.manager.guice.QuartzModule;
 import jobscheduler.manager.quartz.SchedulerService;
+import jobscheduler.manager.resource.v1.JobResource;
 import jobscheduler.manager.resource.v1.NodeResource;
 
 import com.google.inject.Guice;
@@ -37,6 +38,7 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
     public static void main(String... args) throws Exception {
         ManagerApplication app = new ManagerApplication();
         // app.run(args);
+        app.run(new String[] { "db", "migrate", "setting/configuration.yml" });
         app.run(new String[] { "server", "setting/configuration.yml" });
     }
 
@@ -84,6 +86,7 @@ public class ManagerApplication extends Application<ManagerConfiguration> {
                 new QuartzModule());
 
         environment.jersey().register(injector.getInstance(NodeResource.class));
+        environment.jersey().register(injector.getInstance(JobResource.class));
 
         environment.lifecycle().manage(
                 injector.getInstance(SchedulerService.class));

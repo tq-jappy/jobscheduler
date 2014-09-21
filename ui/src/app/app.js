@@ -5,6 +5,7 @@ angular.module('myApp', [
   'ui.bootstrap',
   'ngRoute',
   'ui.menu',
+  'ui.jobs',
   'ui.nodes',
   'myApp.version'
 ]).

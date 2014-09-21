@@ -30,6 +30,10 @@ menu.factory('Menu', function() {
 	var Menu = {};
 	Menu.items = [
 	    {
+	        href: "#/jobs",
+	        name: "ジョブ"
+	    },
+	    {
 	    	href: "#/nodes",
 	    	name: "ノード"
 	    }
