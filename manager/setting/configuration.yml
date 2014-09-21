@@ -9,12 +9,16 @@ server:
 logging:
   loggers:
     jobscheduler: DEBUG
+    org.seasar: DEBUG
 
 database:
-  driverClass: org.postgresql.Driver
-  user: postgres
-  password: postgres
-  url: jdbc:postgresql://localhost:5432/test
-  properties:
-    charSet: UTF-8
+  driverClass: org.h2.Driver
+  user: sa
+  url: jdbc:h2:mem:jobscheduler;DB_CLOSE_DELAY=1
+#  driverClass: org.postgresql.Driver
+#  user: postgres
+#  password: postgres
+#  url: jdbc:postgresql://localhost:5432/test
+#  properties:
+#    charSet: UTF-8
  

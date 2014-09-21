@@ -36,9 +36,11 @@ angular.module('ui.jobs', ['ngRoute', 'ngResource'])
     $scope.formData = {};
     
     $scope.createJob = function() {
+        console.log("create");
+        console.log($scope.formData);
         Job.save($scope.formData, function(job) {
           AlertService.alerts = [ {type: 'success', msg: 'New job created.'} ];
-          $location.path("/");
+          $location.path("/jobs");
         });
         $scope.formData = {};
     };    
