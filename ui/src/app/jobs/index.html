@@ -10,6 +10,7 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
+            <th>Parameters</th>
             <th></th>
         </tr>
     </thead>
@@ -17,6 +18,7 @@
         <tr ng-repeat="job in jobs">
             <td>{{ job.id }}</td>
             <td>{{ job.name }}</td>
+            <td>{{ job.parameters }}</td>
             <td><a class="btn btn-sm btn-default"
                 ng-href="#/jobs/{{ job.id }}/edit"> <i
                     class="glyphicon glyphicon-edit"></i>

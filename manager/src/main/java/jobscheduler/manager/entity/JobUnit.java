@@ -1,22 +1,29 @@
 package jobscheduler.manager.entity;
 
+import java.util.Map;
 import java.util.Optional;
 
 import jobscheduler.manager.domain.UnitType;
+import jobscheduler.manager.entity.listener.JobUnitListener;
 import lombok.Data;
 
+import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 import org.seasar.doma.SequenceGenerator;
+import org.seasar.doma.Transient;
 import org.seasar.doma.jdbc.entity.NamingType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 
  * @author t_endo
  */
-@Entity(naming = NamingType.SNAKE_LOWER_CASE)
+@Entity(naming = NamingType.SNAKE_LOWER_CASE, listener = JobUnitListener.class)
 @Data
 public class JobUnit {
 
@@ -41,5 +48,11 @@ public class JobUnit {
 
     // Optional<Integer> startDelayHour;
 
-    String parameters;
+    @JsonIgnore
+    @Column(name = "parameters")
+    String parametersJson;
+
+    @JsonProperty(value = "parameters")
+    @Transient
+    Map<String, String> parameters;
 }

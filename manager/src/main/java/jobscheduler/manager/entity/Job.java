@@ -1,6 +1,7 @@
 package jobscheduler.manager.entity;
 
-import jobscheduler.manager.bean.JobParameter;
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Builder;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * ジョブ
@@ -23,6 +24,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @EqualsAndHashCode(callSuper = true)
 public class Job extends JobUnit {
 
-    @JsonIgnore
-    JobParameter jobParameter;
+    // @JsonIgnore
+    // JobParameter jobParameter;
+
+    @JsonProperty(value = "parameters")
+    Map<String, String> map;
 }

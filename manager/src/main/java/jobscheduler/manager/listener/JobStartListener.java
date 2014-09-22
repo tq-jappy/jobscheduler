@@ -33,7 +33,7 @@ public class JobStartListener {
 
     @Subscribe
     public void onMessage(Job job) {
-        System.out.println("exec: " + job.getJobParameter());
+        // System.out.println("exec: " + job.getJobParameter());
 
         Client client = Client.create();
         Node node = nodeDao.selectById(1);

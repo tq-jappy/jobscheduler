@@ -3,11 +3,10 @@ package jobscheduler.manager.service;
 import java.util.List;
 
 import jobscheduler.manager.dao.JobDao;
-import jobscheduler.manager.entity.Job;
 import jobscheduler.manager.entity.JobUnit;
 import jobscheduler.manager.guice.persist.DomaTransactionAttribute;
+import jobscheduler.manager.util.JSONUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 
 /**
@@ -21,7 +20,9 @@ public class JobService {
     private JobDao jobDao;
 
     public List<JobUnit> findAll() {
-        return jobDao.selectAll();
+        List<JobUnit> jobs = jobDao.selectAll();
+        jobs.stream().forEach(JSONUtils::readAndSetMap);
+        return jobs;
     }
 
     public JobUnit findById(int id) {
@@ -31,15 +32,6 @@ public class JobService {
     public JobUnit create(JobUnit jobUnit) {
         jobDao.insert(jobUnit);
         return jobUnit;
-    }
-
-    public Job create(Job job) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        String parameters = mapper.writeValueAsString(job.getJobParameter());
-        job.setParameters(parameters);
-
-        jobDao.insert(job);
-        return job;
     }
 
     public JobUnit update(JobUnit jobUnit) {

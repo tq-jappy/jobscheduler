@@ -1,7 +1,6 @@
 package jobscheduler.manager.entity;
 
 import static org.junit.Assert.*
-import jobscheduler.manager.bean.CommandJobParameter
 
 import org.junit.Test
 
@@ -10,21 +9,20 @@ import com.fasterxml.jackson.databind.ObjectMapper
 class JobTest {
 
     @Test
-    public void test() {
-        CommandJobParameter param = CommandJobParameter.builder().nodeId(1).command("test").build()
-
-        Job job = Job.builder().jobParameter(param).build()
-        job.setName("a")
+    public void "シリアライズ -> デシリアライズ変換"() {
+        Job job = new Job()
+        job.setName("job01")
+        job.setMap(["command": "echo hello"])
 
         ObjectMapper mapper = new ObjectMapper()
 
-        def jsonParam = mapper.writeValueAsString(param)
-        job.setParameters(jsonParam)
+        def json = mapper.writeValueAsString(job)
+        println json
 
-        def s = mapper.writeValueAsString(job)
-        println s
+        def actual = mapper.readValue(json, JobUnit.class)
+        println(actual)
 
-        def a = mapper.readValue(s, Job.class)
-        println(a)
+        assert actual.getName() == "job01"
+        assert actual.getMap() == ["command": "echo hello"]
     }
 }
