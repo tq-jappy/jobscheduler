@@ -12,7 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import jobscheduler.manager.entity.Job;
+import jobscheduler.manager.entity.JobUnit;
 import jobscheduler.manager.service.JobService;
 
 import com.google.inject.Inject;
@@ -30,25 +30,25 @@ public class JobResource {
     private JobService jobService;
 
     @GET
-    public List<Job> getJobs() {
+    public List<JobUnit> getJobs() {
         return jobService.findAll();
     }
 
     @GET
     @Path("{id}")
-    public Job getJob(@PathParam("id") int id) {
+    public JobUnit getJob(@PathParam("id") int id) {
         return jobService.findById(id);
     }
 
     @POST
-    public Job postJob(Job job) {
-        return jobService.create(job);
+    public JobUnit postJob(JobUnit jobUnit) {
+        return jobService.create(jobUnit);
     }
 
     @PUT
     @Path("{id}")
-    public Job putJob(@PathParam("id") int id, Job job) {
-        return jobService.update(job);
+    public JobUnit putJob(@PathParam("id") int id, JobUnit jobUnit) {
+        return jobService.update(jobUnit);
     }
 
     @DELETE

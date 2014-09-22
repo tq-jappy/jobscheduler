@@ -3,7 +3,7 @@ package jobscheduler.manager.dao;
 import java.util.List;
 
 import jobscheduler.manager.doma.InjectConfig;
-import jobscheduler.manager.entity.Job;
+import jobscheduler.manager.entity.JobUnit;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
@@ -20,17 +20,17 @@ import org.seasar.doma.Update;
 public interface JobDao {
 
     @Select
-    List<Job> selectAll();
+    List<JobUnit> selectAll();
 
     @Select
-    Job selectById(Integer id);
+    JobUnit selectById(Integer id);
 
     @Insert
-    int insert(Job node);
+    int insert(JobUnit jobUnit);
 
     @Update
-    int update(Job node);
+    int update(JobUnit jobUnit);
 
     @Delete
-    int delete(Job node);
+    int delete(JobUnit jobUnit);
 }

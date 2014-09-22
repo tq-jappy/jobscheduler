@@ -1,7 +1,5 @@
 package jobscheduler.manager.quartz;
 
-import jobscheduler.manager.entity.CommandJob;
-
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -24,7 +22,8 @@ public class ScheduleStartJob implements Job {
     @Override
     public void execute(JobExecutionContext context)
             throws JobExecutionException {
-        CommandJob job = CommandJob.builder().command("aaa").build();
+        jobscheduler.manager.entity.Job job = jobscheduler.manager.entity.Job
+                .builder().build();
 
         eventBus.post(job);
     }
