@@ -1,6 +1,6 @@
 select
     /*%expand*/*
 from
-    job
+    job_unit
 where
     id = /* id */0

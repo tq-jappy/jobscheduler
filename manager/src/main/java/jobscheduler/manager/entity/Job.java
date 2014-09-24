@@ -1,36 +1,32 @@
 package jobscheduler.manager.entity;
 
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.Builder;
 
-import org.seasar.doma.Entity;
-import org.seasar.doma.GeneratedValue;
-import org.seasar.doma.GenerationType;
-import org.seasar.doma.Id;
-import org.seasar.doma.SequenceGenerator;
-import org.seasar.doma.jdbc.entity.NamingType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Job.
+ * ジョブ
  * 
  * @author t_endo
  */
-@Entity(naming = NamingType.SNAKE_LOWER_CASE)
 @Data
-// @Builder
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Job extends Unit {
+public class Job extends JobUnit {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(sequence = "JOB_ID_SEQ")
-    Integer id;
+    // @JsonIgnore
+    // JobParameter jobParameter;
 
-    int outputRecordingMax;
-
-    boolean outputRecordingTail;
+    @JsonProperty(value = "parameters")
+    Map<String, String> map;
 }

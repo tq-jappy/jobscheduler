@@ -1,29 +1,17 @@
 package jobscheduler.manager.entity;
 
-import java.util.Optional;
-
-import lombok.AllArgsConstructor;
+import jobscheduler.manager.bean.JobNetParameter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Builder;
-
-import org.seasar.doma.Entity;
-import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
- * Job net.
+ * ジョブネット
  * 
  * @author t_endo
  */
-@Entity(naming = NamingType.SNAKE_LOWER_CASE)
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class JobNet extends Unit {
+public class JobNet extends JobUnit {
 
-    // TODO: schedule or cycle
-    Optional<Integer> calendarId;
+    JobNetParameter jobNetParameter;
 }

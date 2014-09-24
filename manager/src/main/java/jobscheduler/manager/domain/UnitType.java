@@ -25,5 +25,5 @@ public enum UnitType {
     /**
      * ジョブ: ファイル転送
      */
-    FILE_TRANSFER_JOB
+    FILE_TRANSFER_JOB;
 }

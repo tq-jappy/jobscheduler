@@ -11,7 +11,7 @@ angular.module('myApp', [
 ]).
 
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/nodes'});
+  $routeProvider.otherwise({redirectTo: '/jobs'});
 }]).
 
 factory("AlertService", function() {

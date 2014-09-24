@@ -3,7 +3,7 @@ package jobscheduler.manager.listener;
 import javax.ws.rs.core.MediaType;
 
 import jobscheduler.manager.dao.NodeDao;
-import jobscheduler.manager.entity.CommandJob;
+import jobscheduler.manager.entity.Job;
 import jobscheduler.manager.entity.Node;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,8 +32,8 @@ public class JobStartListener {
     }
 
     @Subscribe
-    public void onMessage(CommandJob job) {
-        System.out.println("exec: " + job.getCommand());
+    public void onMessage(Job job) {
+        // System.out.println("exec: " + job.getJobParameter());
 
         Client client = Client.create();
         Node node = nodeDao.selectById(1);

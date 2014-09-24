@@ -17,9 +17,10 @@
 			</column>
 		</createTable>
 
-		<createSequence sequenceName="job_id_seq" startValue="1" />
+		<createSequence sequenceName="job_unit_id_seq"
+			startValue="1" />
 
-		<createTable tableName="job">
+		<createTable tableName="job_unit">
 			<column name="id" type="bigint" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false" />
 			</column>
@@ -32,10 +33,7 @@
 			<column name="start_hour" type="integer" defaultValueNumeric="0" />
 			<column name="start_minute" type="integer"
 				defaultValueNumeric="0" />
-			<column name="output_recording_max" type="integer"
-				defaultValueNumeric="0" />
-			<column name="output_recording_tail" type="boolean"
-				defaultValueBoolean="false" />
+			<column name="parameters" type="text" />
 		</createTable>
 	</changeSet>
 </databaseChangeLog>

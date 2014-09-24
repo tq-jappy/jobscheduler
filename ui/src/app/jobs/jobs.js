@@ -33,7 +33,10 @@ angular.module('ui.jobs', ['ngRoute', 'ngResource'])
 })
 
 .controller('JobNewCtrl', function($scope, $rootScope, $location, $modal, $http, Job, AlertService) {
-    $scope.formData = {};
+    $scope.formData = {
+      'parameters': {          
+      }
+    };
     
     $scope.createJob = function() {
         console.log("create");
