@@ -5,7 +5,6 @@ import java.util.List;
 import jobscheduler.manager.dao.JobDao;
 import jobscheduler.manager.entity.JobUnit;
 import jobscheduler.manager.guice.persist.DomaTransactionAttribute;
-import jobscheduler.manager.util.JSONUtils;
 
 import com.google.inject.Inject;
 
@@ -20,9 +19,7 @@ public class JobService {
     private JobDao jobDao;
 
     public List<JobUnit> findAll() {
-        List<JobUnit> jobs = jobDao.selectAll();
-        jobs.stream().forEach(JSONUtils::readAndSetMap);
-        return jobs;
+        return jobDao.selectAll();
     }
 
     public JobUnit findById(int id) {

@@ -12,7 +12,7 @@ class JobTest {
     public void "シリアライズ -> デシリアライズ変換"() {
         Job job = new Job()
         job.setName("job01")
-        job.setMap(["command": "echo hello"])
+        job.setParameters(["command": "echo hello"])
 
         ObjectMapper mapper = new ObjectMapper()
 
@@ -23,6 +23,6 @@ class JobTest {
         println(actual)
 
         assert actual.getName() == "job01"
-        assert actual.getMap() == ["command": "echo hello"]
+        assert actual.getParameters() == ["command": "echo hello"]
     }
 }

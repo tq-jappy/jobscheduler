@@ -1,13 +1,13 @@
 package jobscheduler.manager.util;
 
+import io.dropwizard.jackson.Jackson;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import jobscheduler.manager.entity.JobUnit;
 import lombok.SneakyThrows;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,34 +18,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public final class JSONUtils {
 
-    /**
-     * ジョブユニットのシリアライズJSONデータをマップに変換してセットする。
-     * 
-     * @param jobUnit
-     *            ジョブユニット
-     */
-    @SneakyThrows
-    public static void readAndSetMap(JobUnit jobUnit) {
-        Map<String, String> parameters = read(jobUnit.getParametersJson());
-        jobUnit.setParameters(parameters);
-    }
+    private static final ObjectMapper MAPPER = Jackson.newObjectMapper();
+
+    private static final TypeReference<HashMap<String, Object>> TYPE_REF = new TypeReference<HashMap<String, Object>>() {
+    };
 
     /**
-     * TODO: 再利用可能なオブジェクトは使いまわす
+     * 
+     * @param value
+     * @return
+     */
+    @SneakyThrows
+    public static String encode(Map<String, Object> value) {
+        return MAPPER.writeValueAsString(value);
+    }
+
+    /***
      * 
      * @param json
      * @return
      * @throws IOException
      */
-    public static Map<String, String> read(String json) throws IOException {
-        JsonFactory factory = new JsonFactory();
-        ObjectMapper mapper = new ObjectMapper(factory);
-
-        TypeReference<HashMap<String, String>> typeRef = new TypeReference<HashMap<String, String>>() {
-        };
-
-        HashMap<String, String> o = mapper.readValue(json, typeRef);
-        return o;
+    @SneakyThrows
+    public static Map<String, Object> decodeAsMap(String json) {
+        return MAPPER.readValue(json, TYPE_REF);
     }
 
     private JSONUtils() {

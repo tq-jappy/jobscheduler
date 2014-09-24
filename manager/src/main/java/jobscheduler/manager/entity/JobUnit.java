@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import jobscheduler.manager.domain.UnitType;
-import jobscheduler.manager.entity.listener.JobUnitListener;
+import jobscheduler.manager.util.JSONUtils;
 import lombok.Data;
 
 import org.seasar.doma.Column;
@@ -13,17 +13,17 @@ import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 import org.seasar.doma.SequenceGenerator;
-import org.seasar.doma.Transient;
 import org.seasar.doma.jdbc.entity.NamingType;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * 
  * @author t_endo
  */
-@Entity(naming = NamingType.SNAKE_LOWER_CASE, listener = JobUnitListener.class)
+@Entity(naming = NamingType.SNAKE_LOWER_CASE)
 @Data
 public class JobUnit {
 
@@ -52,7 +52,13 @@ public class JobUnit {
     @Column(name = "parameters")
     String parametersJson;
 
-    @JsonProperty(value = "parameters")
-    @Transient
-    Map<String, String> parameters;
+    @JsonSetter(value = "parameters")
+    public void setParameters(Map<String, Object> parameters) {
+        this.parametersJson = JSONUtils.encode(parameters);
+    }
+
+    @JsonGetter(value = "parameters")
+    public Map<String, Object> getParameters() {
+        return JSONUtils.decodeAsMap(parametersJson);
+    }
 }
