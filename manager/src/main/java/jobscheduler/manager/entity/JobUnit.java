@@ -53,12 +53,12 @@ public class JobUnit {
     String parametersJson;
 
     @JsonSetter(value = "parameters")
-    public void setParameters(Map<String, Object> parameters) {
+    public void writeParameters(Map<String, Object> parameters) {
         this.parametersJson = JSONUtils.encode(parameters);
     }
 
     @JsonGetter(value = "parameters")
-    public Map<String, Object> getParameters() {
+    public Map<String, Object> readParameters() {
         return JSONUtils.decodeAsMap(parametersJson);
     }
 }
