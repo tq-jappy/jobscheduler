@@ -1,6 +1,7 @@
 package jobscheduler.agent;
 
 import static spark.Spark.*;
+import static spark.SparkBase.*;
 import jobscheduler.agent.dto.JobResult;
 import jobscheduler.agent.guice.AgentModule;
 import jobscheduler.agent.route.JobRouting;
@@ -21,7 +22,7 @@ public class Agent {
         ResponseTransformer transformer = new JsonResponseTransformer();
 
         Injector injector = Guice.createInjector(new AgentModule());
-        ;
+
         JobRouting jobs = injector.getInstance(JobRouting.class);
 
         before((request, response) -> {
