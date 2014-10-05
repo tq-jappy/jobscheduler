@@ -12,4 +12,6 @@ import lombok.experimental.Builder;
 public class JobParameter {
 
     String path;
+
+    String command;
 }
