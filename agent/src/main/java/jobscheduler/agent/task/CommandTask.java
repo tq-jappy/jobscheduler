@@ -19,9 +19,14 @@ public class CommandTask implements JobTask {
 
     private Consumer<Integer> onComplete;
 
+    /** 実行コマンド */
     private String command;
 
+    /** 実行ユーザ(Linuxのみsudoを使って別ユーザでの実行が可能) */
     private String user;
+
+    /** ログインシェルでコマンドを実行する */
+    private boolean simulateInitialLogin;
 
     private Process process;
 
@@ -74,8 +79,13 @@ public class CommandTask implements JobTask {
             if (user.equals(this.user)) {
                 return new String[] { "sh", "-c", this.command };
             } else {
-                return new String[] { "sudo", "-u", this.user, "sh", "-c",
-                        this.command };
+                if (simulateInitialLogin) {
+                    return new String[] { "sudo", "-u", this.user, "sh", "-c",
+                            this.command };
+                } else {
+                    return new String[] { "sudo", "-u", this.user, "-i", "sh",
+                            "-c", this.command };
+                }
             }
         }
     }
