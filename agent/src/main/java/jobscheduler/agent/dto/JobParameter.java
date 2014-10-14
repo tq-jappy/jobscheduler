@@ -11,7 +11,12 @@ import lombok.experimental.Builder;
 @Builder
 public class JobParameter {
 
+    /** ファイルパス */
     String path;
 
+    /** 実行コマンド */
     String command;
+
+    /** コマンド実行ユーザ */
+    String user;
 }
